@@ -20,7 +20,6 @@ export function HeroSection({copy}: HeroSectionProps) {
     <section id="top" className={styles.hero}>
       <div className={`container ${styles.heroGrid}`}>
         <div className={styles.heroCopy}>
-          <span className={styles.eyebrow}>{tCommon("founded")}</span>
           <h1 className={styles.heroTitle}>{copy.heroTitle}</h1>
           <p className={styles.heroSubtitle}>{copy.heroSubtitle}</p>
 
@@ -58,7 +57,7 @@ export function HeroSection({copy}: HeroSectionProps) {
 
         <div className={styles.heroVisual}>
           <Image
-            src="/brand/logo/mark-purple-512.png"
+            src="/brand/logo/hero-vertical-ru-8_3.png"
             alt={copy.heroImageAlt}
             fill
             priority

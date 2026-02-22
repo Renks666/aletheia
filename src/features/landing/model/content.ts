@@ -83,7 +83,7 @@ const ruCopy: LandingCopy = {
         "Защищаем интересы семьи при выборе академии, заключении договоров и развитии спортивной карьеры.",
     },
   },
-  heroImageAlt: "Фемида, бронзовая скульптура",
+  heroImageAlt: "Вертикальный логотип Алетейя",
   companyStats: [
     "10+ лет в футбольном праве",
     "500+ дел в профильных инстанциях",
@@ -210,7 +210,7 @@ const enCopy: LandingCopy = {
         "We protect family interests in academy agreements, player rights and long-term career development.",
     },
   },
-  heroImageAlt: "Themis bronze sculpture",
+  heroImageAlt: "Aletheia vertical logo (RU wordmark)",
   companyStats: [
     "10+ years in football law",
     "500+ cases across key forums",

@@ -1,7 +1,12 @@
-﻿.footer {
+.footer {
   border-top: 1px solid var(--color-line-soft);
   background: color-mix(in srgb, var(--color-bg-950) 92%, #0b0b0e);
   padding-block: 2.4rem;
+}
+
+.inner {
+  display: grid;
+  gap: 1.6rem;
 }
 
 .row {
@@ -27,13 +32,107 @@
   font-size: 0.88rem;
 }
 
-.links {
+.contacts {
+  min-width: min(26rem, 100%);
   display: grid;
-  gap: 0.5rem;
+  gap: 0.8rem;
+}
+
+.contactsTitle {
+  font-family: var(--font-accent), var(--font-body), "Segoe UI", Arial, sans-serif;
+  color: var(--color-text-100);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contactsList {
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.contactItem {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--color-line-soft);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-surface-900) 78%, transparent);
+}
+
+.contactIcon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-bronze-300);
+  border: 1px solid var(--color-line-strong);
+  background: radial-gradient(circle at 30% 30%, rgba(201, 164, 119, 0.25), rgba(30, 33, 39, 0.2));
+  box-shadow: inset 0 0 18px rgba(143, 106, 67, 0.12);
+}
+
+.contactIcon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.contactBody {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.contactLabel {
+  font-family: var(--font-accent), var(--font-body), "Segoe UI", Arial, sans-serif;
+  color: var(--color-text-400);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contactBody a {
+  color: var(--color-text-100);
+  font-size: 0.9rem;
+}
+
+.contactBody a:hover {
+  color: var(--color-bronze-300);
+}
+
+.legal {
+  border-top: 1px solid var(--color-line-soft);
+  padding-top: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   color: var(--color-text-400);
   font-size: 0.88rem;
 }
 
-.links a:hover {
+.legalLinks a:hover {
   color: var(--color-bronze-300);
+}
+
+.copy {
+  color: var(--color-text-400);
+  font-size: 0.88rem;
+}
+
+@media (width <= 700px) {
+  .legal {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

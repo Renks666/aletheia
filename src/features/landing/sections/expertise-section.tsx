@@ -1,3 +1,7 @@
+"use client";
+
+import {smoothScrollToId} from "@/shared/lib/utils/smooth-scroll";
+
 import type {LandingCopy} from "../model/content";
 import styles from "../landing-page.module.css";
 
@@ -29,7 +33,14 @@ export function ExpertiseSection({copy}: ExpertiseSectionProps) {
         </div>
 
         <div className={styles.expertiseActions}>
-          <a href="#lead-form" className={`${styles.expertiseCta} focus-ring`}>
+          <a
+            href="#lead-form"
+            className={`${styles.expertiseCta} focus-ring`}
+            onClick={(event) => {
+              event.preventDefault();
+              smoothScrollToId("lead-form", "center");
+            }}
+          >
             {copy.expertiseCtaLabel}
           </a>
         </div>
@@ -37,4 +48,3 @@ export function ExpertiseSection({copy}: ExpertiseSectionProps) {
     </section>
   );
 }
-

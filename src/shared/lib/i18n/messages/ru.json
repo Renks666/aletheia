@@ -13,6 +13,10 @@
     "urgentCta": "Срочная консультация",
     "confidential": "Конфиденциально",
     "responseSla": "Ответ в течение 2 часов",
+    "contactsTitle": "Контакты",
+    "contactEmail": "Почта",
+    "contactPhone": "Телефон",
+    "contactTelegram": "Телеграм",
     "privacyPolicy": "Политика конфиденциальности",
     "personalDataConsent": "Согласие на обработку персональных данных"
   },

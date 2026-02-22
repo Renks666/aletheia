@@ -13,6 +13,10 @@
     "urgentCta": "Urgent consultation",
     "confidential": "Confidential",
     "responseSla": "Response within 2 hours",
+    "contactsTitle": "Contacts",
+    "contactEmail": "Email",
+    "contactPhone": "Phone",
+    "contactTelegram": "Telegram",
     "privacyPolicy": "Privacy policy",
     "personalDataConsent": "Personal data consent"
   },

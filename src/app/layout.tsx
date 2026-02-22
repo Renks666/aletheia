@@ -1,22 +1,50 @@
 import type {Metadata} from "next";
 import {headers} from "next/headers";
-import {Cormorant_Garamond, IBM_Plex_Sans} from "next/font/google";
+import localFont from "next/font/local";
 import {hasLocale} from "next-intl";
 
 import {routing} from "@/shared/lib/i18n/routing";
 import "@/shared/styles/tokens.css";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
+const muller = localFont({
   variable: "--font-heading",
-  subsets: ["latin", "cyrillic"],
-  weight: ["500", "600", "700"],
+  display: "swap",
+  src: [
+    {path: "./fonts/muller-regular.otf", weight: "400", style: "normal"},
+    {path: "./fonts/muller-medium.otf", weight: "500", style: "normal"},
+    {path: "./fonts/muller-bold.otf", weight: "700", style: "normal"},
+    {path: "./fonts/muller-extrabold.otf", weight: "800", style: "normal"},
+  ],
 });
 
-const ibmPlexSans = IBM_Plex_Sans({
+const mullerBody = localFont({
   variable: "--font-body",
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  src: [
+    {path: "./fonts/muller-regular.otf", weight: "400", style: "normal"},
+    {path: "./fonts/muller-medium.otf", weight: "500", style: "normal"},
+    {path: "./fonts/muller-bold.otf", weight: "700", style: "normal"},
+  ],
+});
+
+const bebas = localFont({
+  variable: "--font-accent",
+  display: "swap",
+  src: [
+    {path: "./fonts/bebas-regular.otf", weight: "400", style: "normal"},
+    {path: "./fonts/bebas-bold.otf", weight: "700", style: "normal"},
+  ],
+});
+
+const neosansFallback = localFont({
+  variable: "--font-fallback-sans",
+  display: "swap",
+  preload: false,
+  src: [
+    {path: "./fonts/neosans-regular.otf", weight: "400", style: "normal"},
+    {path: "./fonts/neosans-bold.otf", weight: "700", style: "normal"},
+  ],
 });
 
 export const metadata: Metadata = {
@@ -32,7 +60,9 @@ export default async function RootLayout({children}: Readonly<{children: React.R
 
   return (
     <html lang={htmlLang} suppressHydrationWarning>
-      <body className={`${cormorant.variable} ${ibmPlexSans.variable}`}>{children}</body>
+      <body className={`${muller.variable} ${mullerBody.variable} ${bebas.variable} ${neosansFallback.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

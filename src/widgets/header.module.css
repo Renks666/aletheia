@@ -10,10 +10,10 @@
 }
 
 .inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  column-gap: 1rem;
   min-height: 90px;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .title {
-  font-family: var(--font-heading), "Cormorant Garamond", serif;
+  font-family: var(--font-heading), var(--font-body), "Segoe UI", Arial, sans-serif;
   font-size: 2.56rem;
   line-height: 1;
   font-weight: 700;
@@ -78,6 +78,7 @@
   display: flex;
   align-items: center;
   gap: 1.1rem;
+  justify-self: center;
 }
 
 .nav a {
@@ -93,19 +94,12 @@
 .actions {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-}
-
-.locale {
-  border-radius: 999px;
-  border: 1px solid var(--color-line-soft);
-  padding: 0.46rem 0.72rem;
-  font-size: 0.82rem;
-  color: var(--color-text-100);
-  background: color-mix(in srgb, var(--color-surface-900) 75%, transparent);
+  gap: 0.75rem;
+  justify-self: end;
 }
 
 .ctaLink {
+  font-family: var(--font-body), var(--font-fallback-sans), "Segoe UI", Arial, sans-serif;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -114,19 +108,136 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-text-100);
+  white-space: nowrap;
   background: var(--gradient-cta);
   box-shadow: var(--shadow-volume);
+}
+
+.localeSwitcher {
+  position: relative;
+}
+
+.localeTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--color-line-strong);
+  color: var(--color-bronze-300);
+  background: rgba(20, 20, 24, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(201, 164, 119, 0.12), 0 6px 14px rgba(0, 0, 0, 0.24);
+  cursor: pointer;
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    opacity 200ms ease;
+}
+
+.localeTrigger:hover {
+  border-color: var(--color-bronze-300);
+  box-shadow: var(--shadow-cta-hover);
+  opacity: 0.88;
+}
+
+.localeTrigger[aria-expanded="true"] {
+  border-color: var(--color-bronze-300);
+  box-shadow: var(--shadow-cta-hover);
+}
+
+.globeIcon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease;
+}
+
+.localeTrigger:hover .globeIcon {
+  transform: scale(1.08);
+  opacity: 0.86;
+}
+
+.localeMenu {
+  position: absolute;
+  top: calc(100% + 0.28rem);
+  left: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.08rem;
+  min-width: 70px;
+  padding: 0.14rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-line-soft);
+  background: color-mix(in srgb, var(--color-surface-900) 92%, transparent);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, -6px);
+  transform-origin: top center;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 180ms ease;
+}
+
+.localeMenuOpen {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.localeOption {
+  font-family: var(--font-body), var(--font-fallback-sans), "Segoe UI", Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: var(--color-text-100);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    opacity 180ms ease;
+}
+
+.localeOption:hover {
+  color: var(--color-text-100);
+  background: color-mix(in srgb, var(--color-bronze-300) 34%, transparent);
+}
+
+.localeOptionActive {
+  color: var(--color-text-100);
+  font-weight: 700;
+  background: color-mix(in srgb, var(--color-primary-800) 56%, transparent);
+  box-shadow: inset 0 0 0 1px rgba(201, 164, 119, 0.24);
 }
 
 @media (max-width: 980px) {
   .nav {
     display: none;
   }
+
+  .inner {
+    grid-template-columns: auto 1fr auto;
+  }
 }
 
 @media (max-width: 640px) {
   .inner {
     min-height: 64px;
+    column-gap: 0.7rem;
   }
 
   .brandEmblem {
@@ -141,5 +252,35 @@
   .slogan,
   .ctaLink {
     display: none;
+  }
+
+  .localeTrigger {
+    width: 36px;
+    height: 36px;
+  }
+
+  .localeMenu {
+    top: calc(100% + 0.34rem);
+    min-width: 76px;
+    left: 50%;
+    padding: 0.16rem;
+  }
+
+  .localeOption {
+    width: 34px;
+    height: 34px;
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .localeMenu {
+    min-width: 72px;
+  }
+
+  .localeOption {
+    width: 32px;
+    height: 32px;
+    font-size: 0.7rem;
   }
 }
