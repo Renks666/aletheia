@@ -1,0 +1,23 @@
+﻿.sticky {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-100);
+  background: var(--gradient-cta);
+  box-shadow: var(--shadow-volume);
+}
+
+@media (max-width: 900px) {
+  .sticky {
+    display: inline-flex;
+  }
+}

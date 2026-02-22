@@ -1,0 +1,39 @@
+﻿.footer {
+  border-top: 1px solid var(--color-line-soft);
+  background: color-mix(in srgb, var(--color-bg-950) 92%, #0b0b0e);
+  padding-block: 2.4rem;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.company {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.meta {
+  color: var(--color-text-400);
+  font-size: 0.88rem;
+}
+
+.links {
+  display: grid;
+  gap: 0.5rem;
+  color: var(--color-text-400);
+  font-size: 0.88rem;
+}
+
+.links a:hover {
+  color: var(--color-bronze-300);
+}

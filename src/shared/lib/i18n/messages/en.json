@@ -1,0 +1,47 @@
+﻿{
+  "meta": {
+    "title": "Aletheia Football Legal Company",
+    "description": "Premium football legal support: RFU, FIFA, UEFA, CAS, transfers and contracts."
+  },
+  "common": {
+    "company": "Aletheia LLC",
+    "fullCompany": "Aletheia First Football Law Company",
+    "slogan": "We care about the truth",
+    "founded": "Founded in 2014",
+    "ctaPrimary": "Get legal consultation",
+    "ctaSecondary": "Discuss your case",
+    "urgentCta": "Urgent consultation",
+    "confidential": "Confidential",
+    "responseSla": "Response within 2 hours",
+    "privacyPolicy": "Privacy policy",
+    "personalDataConsent": "Personal data consent"
+  },
+  "nav": {
+    "services": "Services",
+    "process": "Process",
+    "expertise": "Expertise",
+    "cases": "Cases",
+    "about": "About",
+    "faq": "FAQ",
+    "contact": "Contacts"
+  },
+  "lead": {
+    "title": "Request a legal consultation",
+    "subtitle": "Initial case review and strategy proposal.",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "role": "Your role",
+    "service": "Service area",
+    "message": "Briefly describe the situation",
+    "consent": "I agree to personal data processing",
+    "submit": "Send request",
+    "success": "Your request has been submitted. We will contact you shortly.",
+    "error": "Submission failed. Please try again.",
+    "detailsTitle": "Add case details",
+    "detailsPlaceholder": "Provide additional context",
+    "detailsSubmit": "Send details",
+    "detailsSuccess": "Additional details have been saved"
+  }
+}
+
