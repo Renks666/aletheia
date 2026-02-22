@@ -20,6 +20,8 @@ npm run dev
 
 Open `http://localhost:3000` (auto-redirects to `/ru`).
 
+`npm run dev` now starts through a small runner that resets `.next` and blocks accidental second `dev` instance for the same project. This prevents corrupted Next.js chunk artifacts in local development.
+
 ## Environment
 
 Copy `.env.example` to `.env.local` and fill delivery channels:
