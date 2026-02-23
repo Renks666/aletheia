@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useTranslations} from "next-intl";
@@ -8,11 +8,13 @@ import {z} from "zod";
 
 import {leadDetailsSchema, leadRequestSchema} from "@/entities/lead/model/schema";
 import type {LeadRequest, LeadResponse, LeadRole} from "@/entities/lead/model/types";
+import {Badge} from "@/shared/ui/badge";
 import {Button} from "@/shared/ui/button";
+import {Input} from "@/shared/ui/input";
+import {Textarea} from "@/shared/ui/textarea";
+import {cn} from "@/shared/lib/utils/cn";
 import type {ServiceItem} from "@/shared/lib/cms/types";
 import type {AudienceRole, Locale} from "@/shared/lib/i18n/types";
-
-import styles from "./lead-form-block.module.css";
 
 type LeadFormBlockProps = {
   locale: Locale;
@@ -137,161 +139,159 @@ export function LeadFormBlock({
     }
   }
 
+  const statusClass =
+    status === "success" ? "text-[#3f7a5a]" : status === "error" ? "text-[#f3aba0]" : "text-muted";
+  const detailsStatusClass =
+    detailsStatus === "success"
+      ? "text-[#3f7a5a]"
+      : detailsStatus === "error"
+        ? "text-[#f3aba0]"
+        : "text-muted";
+
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.heading}>
-        <h3>{t("title")}</h3>
-        <p>{t("subtitle")}</p>
-      </div>
-
-      <form className={styles.grid} onSubmit={leadForm.handleSubmit(onSubmit)} noValidate>
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="lead-name">
-            {t("name")}
-          </label>
-          <input
-            id="lead-name"
-            className={`${styles.input} focus-ring`}
-            {...leadForm.register("name")}
-            autoComplete="name"
-          />
-          <p className={styles.error}>{leadForm.formState.errors.name?.message}</p>
+    <div className="relative overflow-hidden rounded-xl border border-line-soft bg-[image:var(--gradient-panel),url('/images/bronze-texture.svg')] bg-cover p-5 shadow-volume md:p-7">
+      <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(201,164,119,0.22),transparent_60%)] blur-xl" />
+      <div className="relative">
+        <div className="mb-5 grid gap-2">
+          <Badge variant="accent" className="w-fit text-[0.64rem]">
+            {tCommon("confidential")}
+          </Badge>
+          <h3 className="text-[clamp(1.5rem,2.5vw,2rem)] leading-tight">{t("title")}</h3>
+          <p className="max-w-[56ch] text-sm text-muted">{t("subtitle")}</p>
         </div>
 
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="lead-phone">
-            {t("phone")}
-          </label>
-          <input
-            id="lead-phone"
-            className={`${styles.input} focus-ring`}
-            {...leadForm.register("phone")}
-            autoComplete="tel"
-          />
-          <p className={styles.error}>{leadForm.formState.errors.phone?.message}</p>
-        </div>
+        <form
+          className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4"
+          onSubmit={leadForm.handleSubmit(onSubmit)}
+          noValidate
+        >
+          <div className="grid gap-1.5">
+            <label className="text-sm text-muted" htmlFor="lead-name">
+              {t("name")}
+            </label>
+            <Input id="lead-name" {...leadForm.register("name")} autoComplete="name" />
+            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.name?.message}</p>
+          </div>
 
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="lead-email">
-            {t("email")}
-          </label>
-          <input
-            id="lead-email"
-            className={`${styles.input} focus-ring`}
-            {...leadForm.register("email")}
-            autoComplete="email"
-          />
-          <p className={styles.error}>{leadForm.formState.errors.email?.message}</p>
-        </div>
+          <div className="grid gap-1.5">
+            <label className="text-sm text-muted" htmlFor="lead-phone">
+              {t("phone")}
+            </label>
+            <Input id="lead-phone" {...leadForm.register("phone")} autoComplete="tel" />
+            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.phone?.message}</p>
+          </div>
 
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="lead-role">
-            {t("role")}
-          </label>
-          <select id="lead-role" className={`${styles.select} focus-ring`} {...leadForm.register("role")}>
-            {(Object.keys(audienceLabels) as AudienceRole[]).map((role) => (
-              <option key={role} value={role}>
-                {audienceLabels[role]}
-              </option>
-            ))}
-          </select>
-        </div>
+          <div className="grid gap-1.5">
+            <label className="text-sm text-muted" htmlFor="lead-email">
+              {t("email")}
+            </label>
+            <Input id="lead-email" {...leadForm.register("email")} autoComplete="email" />
+            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.email?.message}</p>
+          </div>
 
-        <div className={`${styles.field} ${styles.fieldFull}`}>
-          <label className={styles.label} htmlFor="lead-service">
-            {t("service")}
-          </label>
-          <select
-            id="lead-service"
-            className={`${styles.select} focus-ring`}
-            {...leadForm.register("service")}
-          >
-            {serviceOptions.map((service) => (
-              <option key={service.slug} value={service.title}>
-                {service.title}
-              </option>
-            ))}
-          </select>
-          <p className={styles.error}>{leadForm.formState.errors.service?.message}</p>
-        </div>
-
-        <div className={`${styles.field} ${styles.fieldFull}`}>
-          <label className={styles.label} htmlFor="lead-message">
-            {t("message")}
-          </label>
-          <textarea
-            id="lead-message"
-            className={`${styles.textarea} focus-ring`}
-            {...leadForm.register("message")}
-          />
-          <p className={styles.error}>{leadForm.formState.errors.message?.message}</p>
-        </div>
-
-        <label className={styles.checkboxRow}>
-          <input
-            type="checkbox"
-            className="focus-ring"
-            {...leadForm.register("consent")}
-            aria-invalid={!!leadForm.formState.errors.consent}
-          />
-          <span>{t("consent")}</span>
-        </label>
-
-        <div className={styles.actions}>
-          <Button type="submit" disabled={leadForm.formState.isSubmitting}>
-            {t("submit")}
-          </Button>
-          <p
-            className={`${styles.status} ${
-              status === "success" ? styles.success : status === "error" ? styles.fail : ""
-            }`}
-          >
-            {status === "success" ? t("success") : status === "error" ? t("error") : ""}
-          </p>
-        </div>
-      </form>
-
-      {requestId && detailsToken ? (
-        <form className={styles.details} onSubmit={detailsForm.handleSubmit(onSubmitDetails)}>
-          <p>{t("detailsTitle")}</p>
-          <textarea
-            className={`${styles.textarea} focus-ring`}
-            placeholder={t("detailsPlaceholder")}
-            {...detailsForm.register("details")}
-          />
-          <p className={styles.error}>{detailsForm.formState.errors.details?.message}</p>
-          <div className={styles.actions}>
-            <Button type="submit" variant="secondary" disabled={detailsForm.formState.isSubmitting}>
-              {t("detailsSubmit")}
-            </Button>
-            <p
-              className={`${styles.status} ${
-                detailsStatus === "success"
-                  ? styles.success
-                  : detailsStatus === "error"
-                    ? styles.fail
-                    : ""
-              }`}
+          <div className="grid gap-1.5">
+            <label className="text-sm text-muted" htmlFor="lead-role">
+              {t("role")}
+            </label>
+            <select
+              id="lead-role"
+              className="focus-ring h-11 w-full rounded-sm border border-line-soft bg-[rgba(20,20,24,0.72)] px-3 py-2 text-sm text-text"
+              {...leadForm.register("role")}
             >
-              {detailsStatus === "success"
-                ? t("detailsSuccess")
-                : detailsStatus === "error"
-                  ? t("error")
-                  : ""}
+              {(Object.keys(audienceLabels) as AudienceRole[]).map((role) => (
+                <option key={role} value={role}>
+                  {audienceLabels[role]}
+                </option>
+              ))}
+            </select>
+            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.role?.message}</p>
+          </div>
+
+          <div className="grid gap-1.5 md:col-span-2">
+            <label className="text-sm text-muted" htmlFor="lead-service">
+              {t("service")}
+            </label>
+            <select
+              id="lead-service"
+              className="focus-ring h-11 w-full rounded-sm border border-line-soft bg-[rgba(20,20,24,0.72)] px-3 py-2 text-sm text-text"
+              {...leadForm.register("service")}
+            >
+              {serviceOptions.map((service) => (
+                <option key={service.slug} value={service.title}>
+                  {service.title}
+                </option>
+              ))}
+            </select>
+            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.service?.message}</p>
+          </div>
+
+          <div className="grid gap-1.5 md:col-span-2">
+            <label className="text-sm text-muted" htmlFor="lead-message">
+              {t("message")}
+            </label>
+            <Textarea id="lead-message" {...leadForm.register("message")} />
+            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.message?.message}</p>
+          </div>
+
+          <div className="md:col-span-2">
+            <label className="flex items-start gap-2.5 text-sm text-muted">
+              <input
+                type="checkbox"
+                className="focus-ring mt-0.5 h-4 w-4 accent-[var(--color-primary-600)]"
+                {...leadForm.register("consent")}
+                aria-invalid={!!leadForm.formState.errors.consent}
+              />
+              <span>{t("consent")}</span>
+            </label>
+            <p className="min-h-4 pt-1 text-xs text-[#f3aba0]">{leadForm.formState.errors.consent?.message}</p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-3 md:col-span-2">
+            <Button type="submit" disabled={leadForm.formState.isSubmitting}>
+              {t("submit")}
+            </Button>
+            <p className={cn("text-sm", statusClass)}>
+              {status === "success" ? t("success") : status === "error" ? t("error") : ""}
             </p>
           </div>
         </form>
-      ) : null}
 
-      <div className={styles.contacts}>
-        <span>{tCommon("confidential")}</span>
-        <span>{tCommon("responseSla")}</span>
-        <a href="mailto:info@aletheia.pro">info@aletheia.pro</a>
-        <a href="https://t.me/AletheiaFootball" target="_blank" rel="noreferrer">
-          t.me/AletheiaFootball
-        </a>
+        {requestId && detailsToken ? (
+          <form className="mt-6 grid gap-2 border-t border-line-soft pt-5" onSubmit={detailsForm.handleSubmit(onSubmitDetails)}>
+            <p className="font-medium">{t("detailsTitle")}</p>
+            <Textarea placeholder={t("detailsPlaceholder")} {...detailsForm.register("details")} />
+            <p className="min-h-4 text-xs text-[#f3aba0]">{detailsForm.formState.errors.details?.message}</p>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <Button type="submit" variant="secondary" disabled={detailsForm.formState.isSubmitting}>
+                {t("detailsSubmit")}
+              </Button>
+              <p className={cn("text-sm", detailsStatusClass)}>
+                {detailsStatus === "success"
+                  ? t("detailsSuccess")
+                  : detailsStatus === "error"
+                    ? t("error")
+                    : ""}
+              </p>
+            </div>
+          </form>
+        ) : null}
+
+        <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted">
+          <span>{tCommon("confidential")}</span>
+          <span>{tCommon("responseSla")}</span>
+          <a href="mailto:info@aletheia.pro" className="focus-ring rounded-sm hover:text-bronze-300">
+            info@aletheia.pro
+          </a>
+          <a
+            href="https://t.me/AletheiaFootball"
+            target="_blank"
+            rel="noreferrer"
+            className="focus-ring rounded-sm hover:text-bronze-300"
+          >
+            t.me/AletheiaFootball
+          </a>
+        </div>
       </div>
     </div>
   );
 }
-

@@ -60,7 +60,9 @@ export default async function RootLayout({children}: Readonly<{children: React.R
 
   return (
     <html lang={htmlLang} suppressHydrationWarning>
-      <body className={`${muller.variable} ${mullerBody.variable} ${bebas.variable} ${neosansFallback.variable}`}>
+      <body
+        className={`${muller.variable} ${mullerBody.variable} ${bebas.variable} ${neosansFallback.variable} bg-bg text-text antialiased`}
+      >
         {children}
       </body>
     </html>

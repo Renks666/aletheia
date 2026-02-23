@@ -7,6 +7,7 @@ Premium bilingual (RU/EN) marketing landing for **ООО «Алетейя»** bu
 - Next.js 15 + TypeScript + App Router
 - next-intl (RU/EN routing)
 - Server-first rendering + client islands
+- Tailwind CSS + shadcn/ui primitives
 - React Hook Form + Zod (lead forms)
 - API routes for lead capture (email + Telegram)
 - Strapi-ready content layer with fallback local content
@@ -38,6 +39,7 @@ If channels are not configured, `/api/leads` returns `delivery_not_configured`.
 ```bash
 npm run lint
 npm run test
+npm run test:e2e
 npm run build
 npm run analyze
 ```
@@ -46,10 +48,11 @@ npm run analyze
 
 - `src/app/[locale]/(marketing)/page.tsx` - landing entry
 - `src/features/landing/*` - sections and page composition
-- `src/widgets/*` - header, footer, form, sticky CTA
+- `src/widgets/*` - header, footer, lead form, sticky CTA
 - `src/entities/lead/*` - lead schemas, types, delivery
 - `src/shared/lib/cms/*` - Strapi client + fallback content
 - `src/shared/styles/tokens.css` - design tokens
+- `src/shared/ui/*` - shadcn-style UI primitives
 
 ## Brandbook assets
 

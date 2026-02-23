@@ -1,64 +1,73 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-line-soft;
+  }
+
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: clip;
+  }
+
+  body {
+    font-family: var(--font-body), var(--font-fallback-sans), "Segoe UI", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--color-text-100);
+    background:
+      radial-gradient(circle at 15% 0%, rgba(201, 164, 119, 0.14), transparent 34%),
+      radial-gradient(circle at 88% 2%, rgba(75, 42, 123, 0.3), transparent 32%),
+      var(--color-bg-950);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading), var(--font-body), "Segoe UI", Arial, sans-serif;
+    letter-spacing: 0.01em;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  ::selection {
+    color: var(--color-text-100);
+    background: color-mix(in srgb, var(--color-primary-600) 65%, transparent);
+  }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: clip;
-  background: var(--color-bg-950);
-  color: var(--color-text-100);
-}
+@layer components {
+  .section {
+    padding-block: clamp(3.4rem, 7.2vw, 5.8rem);
+  }
 
-body {
-  font-family: var(--font-body), var(--font-fallback-sans), "Segoe UI", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  letter-spacing: 0.01em;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  .glass-panel {
+    border: 1px solid var(--color-line-soft);
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--color-surface-900) 88%, transparent);
+    backdrop-filter: blur(8px);
+  }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-heading), var(--font-body), "Segoe UI", Arial, sans-serif;
-  letter-spacing: 0.01em;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-.container {
-  width: min(1140px, calc(100vw - 2.4rem));
-  margin-inline: auto;
-}
-
-.section {
-  padding-block: clamp(3.4rem, 7.2vw, 5.8rem);
-}
-
-.glass-panel {
-  border: 1px solid var(--color-line-soft);
-  border-radius: 20px;
-  background: color-mix(in srgb, var(--color-surface-900) 88%, transparent);
-  backdrop-filter: blur(8px);
-}
-
-.focus-ring:focus-visible {
-  outline: 2px solid var(--color-bronze-300);
-  outline-offset: 2px;
+  .focus-ring:focus-visible {
+    outline: 2px solid var(--color-bronze-300);
+    outline-offset: 2px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -69,4 +78,3 @@ img {
     scroll-behavior: auto !important;
   }
 }
-

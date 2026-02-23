@@ -5,6 +5,21 @@ export type HeroTone = {
   subtitle: string;
 };
 
+export type CompanyStatIcon = "calendar" | "folder" | "trophy";
+
+export type CompanyStat = {
+  value: string;
+  label: string;
+  icon: CompanyStatIcon;
+};
+
+export type TrustBadgeIcon = "regulations" | "anonymized" | "shield" | "response";
+
+export type TrustBadge = {
+  title: string;
+  icon: TrustBadgeIcon;
+};
+
 export type ExpertiseCard = {
   title: string;
   description: string;
@@ -23,8 +38,8 @@ export type LandingCopy = {
   heroSubtitle: string;
   heroByRole: Record<AudienceRole, HeroTone>;
   heroImageAlt: string;
-  companyStats: string[];
-  trustBadges: string[];
+  companyStats: CompanyStat[];
+  trustBadges: TrustBadge[];
   process: ProcessStep[];
   audienceIntro: string;
   servicesIntro: string;
@@ -85,14 +100,39 @@ const ruCopy: LandingCopy = {
   },
   heroImageAlt: "Вертикальный логотип Алетейя",
   companyStats: [
-    "10+ лет в футбольном праве",
-    "500+ дел в профильных инстанциях",
-    "До 95% успешности по завершенным кейсам",
+    {
+      value: "10+",
+      label: "лет в футбольном праве",
+      icon: "calendar",
+    },
+    {
+      value: "500+",
+      label: "дел в профильных инстанциях",
+      icon: "folder",
+    },
+    {
+      value: "95%",
+      label: "успешности по завершенным кейсам",
+      icon: "trophy",
+    },
   ],
   trustBadges: [
-    "Работаем в рамках регламентов РФС / UEFA / FIFA / CAS",
-    "Анонимизированная публикация кейсов",
-    "Конфиденциальный контур сопровождения",
+    {
+      title: "Работаем в рамках регламентов РФС / UEFA / FIFA / CAS",
+      icon: "regulations",
+    },
+    {
+      title: "Анонимизированная публикация кейсов",
+      icon: "anonymized",
+    },
+    {
+      title: "Конфиденциальный контур сопровождения",
+      icon: "shield",
+    },
+    {
+      title: "Ответ в течение 2 часов",
+      icon: "response",
+    },
   ],
   audienceIntro:
     "Персонализируйте экран под вашу роль, чтобы увидеть релевантный фокус сопровождения и приоритетные направления.",
@@ -212,14 +252,39 @@ const enCopy: LandingCopy = {
   },
   heroImageAlt: "Aletheia vertical logo (RU wordmark)",
   companyStats: [
-    "10+ years in football law",
-    "500+ cases across key forums",
-    "Up to 95% success rate on closed matters",
+    {
+      value: "10+",
+      label: "years in football law",
+      icon: "calendar",
+    },
+    {
+      value: "500+",
+      label: "cases across key forums",
+      icon: "folder",
+    },
+    {
+      value: "95%",
+      label: "success rate on closed matters",
+      icon: "trophy",
+    },
   ],
   trustBadges: [
-    "Operating within RFU / UEFA / FIFA / CAS frameworks",
-    "Anonymized case storytelling",
-    "Confidential advisory workflow",
+    {
+      title: "Operating within RFU / UEFA / FIFA / CAS frameworks",
+      icon: "regulations",
+    },
+    {
+      title: "Anonymized case storytelling",
+      icon: "anonymized",
+    },
+    {
+      title: "Confidential advisory workflow",
+      icon: "shield",
+    },
+    {
+      title: "Response within 2 hours",
+      icon: "response",
+    },
   ],
   audienceIntro:
     "Switch your role to view the most relevant legal focus and priority service tracks for your profile.",

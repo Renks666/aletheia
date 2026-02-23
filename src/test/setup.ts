@@ -14,3 +14,42 @@ vi.mock("next/image", () => ({
     });
   },
 }));
+
+class MockIntersectionObserver implements IntersectionObserver {
+  readonly root: Element | Document | null = null;
+  readonly rootMargin = "0px";
+  readonly thresholds: ReadonlyArray<number> = [0];
+
+  disconnect() {
+    return undefined;
+  }
+
+  observe() {
+    return undefined;
+  }
+
+  takeRecords(): IntersectionObserverEntry[] {
+    return [];
+  }
+
+  unobserve() {
+    return undefined;
+  }
+}
+
+class MockResizeObserver implements ResizeObserver {
+  disconnect() {
+    return undefined;
+  }
+
+  observe() {
+    return undefined;
+  }
+
+  unobserve() {
+    return undefined;
+  }
+}
+
+vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
+vi.stubGlobal("ResizeObserver", MockResizeObserver);
