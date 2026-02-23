@@ -23,7 +23,7 @@ export function ExpertiseSection({copy}: ExpertiseSectionProps) {
           {copy.expertiseCards.map((card) => (
             <article
               key={card.title}
-              className="grid content-start gap-3 rounded-md border border-line-soft bg-[color:color-mix(in_srgb,var(--color-bg-950)_72%,transparent)] p-[clamp(1rem,1.8vw,1.2rem)]"
+              className="grid content-start gap-3 rounded-md border border-line-soft bg-[color:color-mix(in_srgb,var(--color-bg-950)_72%,transparent)] p-[clamp(1rem,1.8vw,1.2rem)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_0_1px_rgba(201,164,119,0.18),0_14px_30px_rgba(0,0,0,0.34)]"
             >
               <h3 className="text-[1.2rem] leading-tight">{card.title}</h3>
               <p className="text-sm text-muted">{card.description}</p>
@@ -40,7 +40,7 @@ export function ExpertiseSection({copy}: ExpertiseSectionProps) {
         </div>
 
         <div className="mt-[clamp(1rem,2vw,1.4rem)]">
-          <Button asChild className="h-10 px-5">
+          <Button asChild variant="secondary" className="h-10 px-5">
             <a href="#lead-form">{copy.expertiseCtaLabel}</a>
           </Button>
         </div>

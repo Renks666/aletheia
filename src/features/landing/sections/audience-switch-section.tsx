@@ -22,7 +22,7 @@ export function AudienceSwitchSection({
   const roleTone = copy.heroByRole[role];
 
   return (
-    <section id="services" aria-labelledby="services-heading" className="section pb-[clamp(1.2rem,2.6vw,2rem)]">
+    <section id="services" aria-labelledby="services-heading" className="section">
       <div className="container">
         <header className="mb-[clamp(1.3rem,2.7vw,2.15rem)] grid gap-3">
           <h2 id="services-heading" className="text-[clamp(1.9rem,3vw,2.53rem)]">{copy.servicesTitle}</h2>

@@ -12,7 +12,7 @@ type ServicesSectionProps = {
 
 export function ServicesSection({copy, services}: ServicesSectionProps) {
   return (
-    <section className="section pt-[clamp(1.2rem,2.6vw,2rem)]">
+    <section className="section">
       <div className="container">
         <p className="mb-[clamp(1.2rem,3vw,2rem)] max-w-[62ch] text-muted">{copy.servicesIntro}</p>
 
@@ -20,7 +20,7 @@ export function ServicesSection({copy, services}: ServicesSectionProps) {
           {services.map((service) => (
             <article
               key={service.slug}
-              className="grid min-h-[190px] content-start gap-3 rounded-md border border-line-soft bg-[var(--gradient-surface)] p-[clamp(1rem,1.8vw,1.2rem)]"
+              className="grid min-h-[190px] content-start gap-3 rounded-md border border-line-soft bg-[var(--gradient-surface)] p-[clamp(1rem,1.8vw,1.2rem)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_0_1px_rgba(201,164,119,0.18),0_14px_30px_rgba(0,0,0,0.34)]"
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="font-accent text-xs uppercase tracking-[0.09em] text-bronze-300">

@@ -43,10 +43,18 @@ export function HeroSection({copy}: HeroSectionProps) {
           <p className="max-w-[58ch] text-[clamp(1rem,1.2vw,1.16rem)] text-muted">{copy.heroSubtitle}</p>
 
           <div className="mt-1 flex flex-wrap gap-3">
-            <Button variant="cta" onClick={() => smoothScrollToId("lead-form", "center")}>
+            <Button
+              variant="cta"
+              aria-label={tCommon("ctaPrimary")}
+              onClick={() => smoothScrollToId("lead-form", "center")}
+            >
               {tCommon("ctaPrimary")}
             </Button>
-            <Button variant="secondary" onClick={() => smoothScrollToId("services")}>
+            <Button
+              variant="secondary"
+              aria-label={tCommon("ctaSecondary")}
+              onClick={() => smoothScrollToId("services")}
+            >
               {tCommon("ctaSecondary")}
             </Button>
           </div>
@@ -58,7 +66,7 @@ export function HeroSection({copy}: HeroSectionProps) {
               return (
                 <li
                   key={`${item.value}-${item.label}`}
-                  className="relative overflow-hidden rounded-md border border-line-soft bg-[linear-gradient(160deg,rgba(30,33,39,0.9),rgba(20,20,24,0.82))] px-4 py-3 shadow-[0_10px_24px_rgba(0,0,0,0.22)]"
+                  className="group relative overflow-hidden rounded-md border border-line-soft bg-[linear-gradient(160deg,rgba(30,33,39,0.9),rgba(20,20,24,0.82))] px-4 py-3 shadow-[0_10px_24px_rgba(0,0,0,0.22)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_0_1px_rgba(201,164,119,0.16),0_14px_30px_rgba(0,0,0,0.32)]"
                 >
                   <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_12%,rgba(201,164,119,0.14),transparent_45%)]" />
                   <div className="relative">
@@ -68,7 +76,9 @@ export function HeroSection({copy}: HeroSectionProps) {
                     <p className="mt-2 font-accent text-[clamp(2.6rem,5.3vw,4rem)] leading-none tracking-[0.02em] text-bronze-300">
                       {item.value}
                     </p>
-                    <p className="mt-2 text-[0.72rem] uppercase tracking-[0.09em] text-muted">{item.label}</p>
+                    <p className="mt-2 text-[0.72rem] uppercase tracking-[0.09em] text-muted group-hover:text-text">
+                      {item.label}
+                    </p>
                   </div>
                 </li>
               );

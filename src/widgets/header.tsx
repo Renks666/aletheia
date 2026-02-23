@@ -32,6 +32,10 @@ export function Header({locale}: HeaderProps) {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const switcherLabel = locale === "ru" ? "Выбрать язык" : "Choose language";
   const navAriaLabel = locale === "ru" ? "Разделы сайта" : "Site sections";
+  const localeMenuId = "locale-menu";
+  const mobileMenuId = "mobile-menu";
+  const openMenuLabel = locale === "ru" ? "Открыть меню" : "Open menu";
+  const closeMenuLabel = locale === "ru" ? "Закрыть меню" : "Close menu";
 
   const navItems = useMemo<NavItem[]>(
     () => [
@@ -79,7 +83,7 @@ export function Header({locale}: HeaderProps) {
       className="fixed inset-x-0 top-0 z-40 animate-fade-up border-b border-line-soft bg-[color:color-mix(in_srgb,var(--color-bg-950)_78%,transparent)] backdrop-blur-xl"
     >
       <div className="container grid min-h-[72px] grid-cols-[auto_1fr_auto] items-center gap-3 py-2 lg:min-h-[86px] lg:grid-cols-[auto_minmax(0,1fr)_auto]">
-        <a href="#top" className="group inline-flex min-w-0 items-center gap-3">
+        <a href="#top" className="focus-ring group inline-flex min-w-0 items-center gap-3 rounded-md">
           <span
             aria-hidden
             className="relative inline-flex size-10 shrink-0 overflow-hidden rounded-full border border-line-strong bg-[linear-gradient(165deg,rgba(20,20,24,0.65),rgba(20,20,24,0.25))] shadow-[0_0_0_1px_rgba(201,164,119,0.35),0_10px_24px_rgba(0,0,0,0.45)] transition-transform duration-300 group-hover:scale-105 lg:size-11"
@@ -138,6 +142,7 @@ export function Header({locale}: HeaderProps) {
               aria-label={switcherLabel}
               aria-haspopup="menu"
               aria-expanded={isLocaleMenuOpen}
+              aria-controls={localeMenuId}
               onClick={() => setIsLocaleMenuOpen((open) => !open)}
             >
               <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_24%,rgba(201,164,119,0.18),transparent_58%)]" />
@@ -152,6 +157,7 @@ export function Header({locale}: HeaderProps) {
             </button>
 
             <div
+              id={localeMenuId}
               role="menu"
               aria-hidden={!isLocaleMenuOpen}
               className={cn(
@@ -196,14 +202,20 @@ export function Header({locale}: HeaderProps) {
             <button
               type="button"
               className="focus-ring inline-flex size-9 items-center justify-center rounded-full border border-line-soft bg-[rgba(22,20,28,0.8)] text-text"
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-label={isMobileMenuOpen ? closeMenuLabel : openMenuLabel}
+              aria-haspopup="menu"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls={mobileMenuId}
               onClick={() => setIsMobileMenuOpen((open) => !open)}
             >
               {isMobileMenuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
             </button>
 
             {isMobileMenuOpen ? (
-              <div className="absolute right-0 top-[calc(100%+0.45rem)] z-50 w-[min(86vw,320px)] rounded-lg border border-line-soft bg-[var(--gradient-panel)] p-4 shadow-volume">
+              <div
+                id={mobileMenuId}
+                className="absolute right-0 top-[calc(100%+0.45rem)] z-50 w-[min(86vw,320px)] rounded-lg border border-line-soft bg-[var(--gradient-panel)] p-4 shadow-volume"
+              >
                 <nav aria-label={navAriaLabel}>
                   <ul className="grid gap-1">
                     {navItems.map((item) => (

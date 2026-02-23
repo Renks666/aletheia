@@ -59,16 +59,16 @@ const fallbackContent: Record<Locale, LandingCmsContent> = {
       {
         title: "Анонимизированный кейс: задолженность по заработной плате",
         challenge:
-          "Клуб допустил накопленную просрочку по регулярным выплатам в размере более двух средних месячных заработков.",
+          "Клуб допустил накопленную просрочку по регулярным выплатам свыше двух средних месячных заработков.",
         result:
-          "Требования игрока подтверждены в спортивной юрисдикции, получено решение о выплате задолженности и компенсации.",
+          "Требования игрока подтверждены, получено решение о выплате задолженности и компенсации.",
         metrics: ["2+ средних заработка подтверждены", "Платежный график зафиксирован"],
         isAnonymized: true,
       },
       {
         title: "Анонимизированный кейс: дискриминационные условия подготовки",
         challenge:
-          "Игрок был выведен из общего тренировочного процесса при сохранении формального действия контракта.",
+          "Игрок был выведен из общего тренировочного процесса при формально действующем контракте.",
         result:
           "Собрана процессуальная база, позиция усилена в претензионном и юрисдикционном порядке.",
         metrics: ["Документированная позиция по срокам", "Снижен риск санкций для игрока"],
@@ -77,9 +77,9 @@ const fallbackContent: Record<Locale, LandingCmsContent> = {
       {
         title: "Анонимизированный кейс: спор о досрочном расторжении",
         challenge:
-          "Требовалось подтвердить уважительность причин расторжения и избежать статуса нарушившей стороны.",
+          "Требовалось подтвердить уважительные причины расторжения и избежать статуса нарушившей стороны.",
         result:
-          "Выстроена стратегия расторжения через претензию и Палату с учетом сроков и финансовых последствий.",
+          "Выстроена стратегия расторжения через претензию и Палату с учетом сроков и финансовых рисков.",
         metrics: ["Процедура 10/30 дней соблюдена", "Компенсационный риск минимизирован"],
         isAnonymized: true,
       },
@@ -88,56 +88,56 @@ const fallbackContent: Record<Locale, LandingCmsContent> = {
       {
         question: "С какими категориями дел вы работаете?",
         answer:
-          "Мы сопровождаем споры в РФС, FIFA, UEFA и CAS, а также трансферы, договоры, лицензирование и дисциплинарные процедуры.",
+          "Сопровождаем споры в РФС, FIFA, UEFA и CAS, а также трансферы, договоры, лицензирование и дисциплинарные процедуры.",
         locale: "ru",
         order: 1,
       },
       {
         question: "Что в практике чаще признают существенным нарушением клуба?",
         answer:
-          "Чаще всего это задолженность по выплатам, дискриминационный режим подготовки и спорные ситуации со статусом игрока в заявке.",
+          "Чаще всего это задолженность по выплатам, дискриминационный режим подготовки и спорный статус игрока в заявке.",
         locale: "ru",
         order: 2,
       },
       {
         question: "Как действовать при признаках существенного нарушения?",
         answer:
-          "Обычно начинаем с письменной претензии, фиксируем сроки устранения и при необходимости обращаемся в Палату по разрешению споров.",
+          "Обычно начинаем с письменной претензии, фиксируем сроки устранения и при необходимости обращаемся в Палату.",
         locale: "ru",
         order: 3,
       },
       {
         question: "Можно ли обратиться, если спор уже начался?",
         answer:
-          "Да. Мы подключаемся на любой стадии и формируем стратегию с учетом процессуальных сроков и рисков.",
+          "Да. Подключаемся на любой стадии и формируем стратегию с учетом сроков и рисков.",
         locale: "ru",
         order: 4,
       },
       {
         question: "Как соблюдается конфиденциальность?",
         answer:
-          "Вся информация обрабатывается в закрытом контуре, кейсы в публичных материалах публикуются только в анонимизированном виде.",
+          "Информация обрабатывается в закрытом контуре, публичные кейсы публикуются только в анонимизированном виде.",
         locale: "ru",
         order: 5,
       },
       {
         question: "Вы работаете только по России?",
         answer:
-          "Базовая юрисдикция - Россия и постсоветское пространство, также сопровождаем международные кейсы при участии FIFA, UEFA и CAS.",
+          "Базовая юрисдикция - Россия и постсоветское пространство, также сопровождаем международные кейсы с участием FIFA, UEFA и CAS.",
         locale: "ru",
         order: 6,
       },
       {
         question: "Сколько занимает первичный разбор?",
         answer:
-          "Первичная правовая оценка обычно дается в день обращения при наличии базовых документов и описания ситуации.",
+          "Первичная правовая оценка обычно дается в день обращения при наличии базовых документов.",
         locale: "ru",
         order: 7,
       },
       {
         question: "Какие форматы взаимодействия доступны?",
         answer:
-          "Очно, онлайн и в гибридном формате. Для срочных вопросов используем защищенные каналы связи и ускоренный SLA.",
+          "Очно, онлайн и в гибридном формате. Для срочных вопросов используем защищенные каналы и ускоренный SLA.",
         locale: "ru",
         order: 8,
       },
@@ -198,27 +198,27 @@ const fallbackContent: Record<Locale, LandingCmsContent> = {
       {
         title: "Anonymized case: overdue salary obligations",
         challenge:
-          "The club accumulated overdue regular payments exceeding the threshold of two average monthly salaries.",
+          "The club accumulated overdue regular payments above the threshold of two average monthly salaries.",
         result:
-          "Player claims were confirmed in football jurisdiction, with debt and compensation parameters fixed for execution.",
+          "Player claims were confirmed, with debt and compensation parameters fixed for execution.",
         metrics: ["2+ monthly salary threshold confirmed", "Payment execution schedule secured"],
         isAnonymized: true,
       },
       {
         title: "Anonymized case: discriminatory training regime",
         challenge:
-          "The player was excluded from the main training process while the employment contract remained formally active.",
+          "The player was excluded from the main training process while the employment contract remained active.",
         result:
-          "A defensible evidentiary file was built for notice and chamber-level positioning within procedural deadlines.",
+          "A defensible evidentiary file was built for notice and chamber-level positioning within deadlines.",
         metrics: ["Timeline-proofed evidence package", "Sanction exposure reduced"],
         isAnonymized: true,
       },
       {
         title: "Anonymized case: early termination dispute",
         challenge:
-          "The mandate required proving just cause and avoiding breach-side qualification of the terminating party.",
+          "The mandate required proving just cause and avoiding breach-side qualification.",
         result:
-          "Termination strategy was built through formal notice and dispute chamber pathway with compensation risk control.",
+          "Termination strategy was built through formal notice and chamber pathway with compensation risk control.",
         metrics: ["10/30 day procedural window observed", "Compensation risk minimized"],
         isAnonymized: true,
       },
@@ -234,42 +234,42 @@ const fallbackContent: Record<Locale, LandingCmsContent> = {
       {
         question: "What is most often treated as a material club breach?",
         answer:
-          "Typical patterns include overdue pay obligations, discriminatory training conditions and status-related registration issues.",
+          "Typical patterns include overdue pay obligations, discriminatory training conditions and registration-status issues.",
         locale: "en",
         order: 2,
       },
       {
         question: "What is the usual action path in a material breach scenario?",
         answer:
-          "We usually start with a formal notice, track cure deadlines and then proceed to the RFU dispute chamber if needed.",
+          "We usually start with a formal notice, track cure deadlines and proceed to the RFU dispute chamber if needed.",
         locale: "en",
         order: 3,
       },
       {
         question: "Can we engage you after the dispute has started?",
         answer:
-          "Yes. We join at any stage and build a strategy around procedural deadlines and legal risks.",
+          "Yes. We join at any stage and build a strategy around deadlines and legal risks.",
         locale: "en",
         order: 4,
       },
       {
         question: "How do you ensure confidentiality?",
         answer:
-          "All case data is handled in a restricted workflow. Public materials use anonymized case narratives only.",
+          "All case data is handled in a restricted workflow. Public materials use anonymized narratives only.",
         locale: "en",
         order: 5,
       },
       {
         question: "Do you work only in Russia?",
         answer:
-          "Primary geography is Russia and CIS. We also support international matters involving FIFA, UEFA and CAS.",
+          "Primary geography is Russia and CIS. We also support international matters with FIFA, UEFA and CAS.",
         locale: "en",
         order: 6,
       },
       {
         question: "How fast is the initial review?",
         answer:
-          "Typically on the same day when core documents and context are provided.",
+          "Typically on the same day when core documents are provided.",
         locale: "en",
         order: 7,
       },

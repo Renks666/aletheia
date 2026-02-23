@@ -70,7 +70,7 @@ const ruCopy: LandingCopy = {
   },
   heroTitle: "Юридическая защита в профессиональном футболе: от контракта до арбитража",
   heroSubtitle:
-    "Сопровождаем игроков, клубы, агентов, тренеров и семьи спортсменов в спорах, переговорах и регуляторных вопросах.",
+    "Сопровождаем игроков, клубы, агентов, тренеров и семьи в спорах, переговорах и регуляторных вопросах.",
   heroByRole: {
     player: {
       title: "Юридическая защита карьеры профессионального футболиста",
@@ -137,19 +137,19 @@ const ruCopy: LandingCopy = {
   audienceIntro:
     "Персонализируйте экран под вашу роль, чтобы увидеть релевантный фокус сопровождения и приоритетные направления.",
   servicesIntro:
-    "Ключевые услуги сфокусированы на контрактной стабильности, защите прав игроков и процессах в юрисдикциях РФС, FIFA, UEFA и CAS.",
+    "Ключевые услуги сфокусированы на контрактной стабильности, защите прав игроков и спорах в юрисдикциях РФС, FIFA, UEFA и CAS.",
   processIntro:
-    "Процесс включает досудебную фиксацию нарушений, стратегию позиции и контроль исполнения решений в спортивной юрисдикции.",
+    "Процесс включает фиксацию нарушений, стратегию позиции и контроль исполнения решений.",
   proofIntro:
-    "В кейсах используются только анонимизированные формулировки, отражающие типовые паттерны из практики: задолженность, дискриминация, спорные расторжения.",
+    "Публикуем только анонимизированные кейсы по типовым паттернам: задолженность, дискриминация, спорные расторжения.",
   expertiseTitle: "Экспертный фокус: существенные нарушения и защита футболиста",
   expertiseIntro:
-    "Краткая рамка по теме выступления ЮФМ 2024: когда нарушение клуба может считаться существенным и как действовать процессуально корректно.",
+    "Краткая рамка по ЮФМ 2024: когда нарушение клуба считается существенным и как действовать процессуально корректно.",
   expertiseCards: [
     {
       title: "Что относится к существенному нарушению",
       description:
-        "В спортивной практике ключевыми триггерами чаще всего выступают системные финансовые и статусные нарушения со стороны клуба.",
+        "В практике ключевыми триггерами обычно выступают системные финансовые и статусные нарушения со стороны клуба.",
       bullets: [
         "Задолженность по выплатам на уровне 2+ средних месячных заработков",
         "Невключение игрока 18+ в заявку без законных оснований",
@@ -159,7 +159,7 @@ const ruCopy: LandingCopy = {
     {
       title: "Алгоритм действий игрока или тренера",
       description:
-        "Основной риск снижается дисциплиной процедуры: претензия, срок на устранение, затем обращение в Палату по разрешению споров.",
+        "Основной риск снижает процедурная дисциплина: претензия, срок на устранение, затем обращение в Палату.",
       bullets: [
         "Претензия в клуб с фиксацией нарушения и намерения расторгнуть договор",
         "Ожидание претензионного срока: обычно 10 или 30 календарных дней",
@@ -169,7 +169,7 @@ const ruCopy: LandingCopy = {
     {
       title: "Компенсация и ключевые риски",
       description:
-        "При ошибке в квалификации оснований инициатор расторжения может стать нарушившей стороной с финансовыми и дисциплинарными последствиями.",
+        "При ошибке в квалификации оснований инициатор расторжения может стать нарушившей стороной с финансовыми последствиями.",
       bullets: [
         "Размер компенсации зависит от договора и критериев Палаты",
         "При отсутствии фиксированной суммы ориентиром служит минимум 3 средних заработка",
@@ -205,7 +205,7 @@ const ruCopy: LandingCopy = {
   ],
   aboutTitle: "Сильная правовая позиция в мире профессионального футбола",
   aboutText:
-    "С 2014 года Алетейя ведет профильные футбольные дела и сопровождает игроков, тренеров, агентов и клубы в чувствительных спорах. Мы работаем коротко, предметно и с процессуальным контролем на каждом этапе.",
+    "С 2014 года Алетейя ведет профильные футбольные дела и сопровождает игроков, тренеров, агентов и клубы в чувствительных спорах. Работаем коротко, предметно и с процессуальным контролем на каждом этапе.",
   proofTitle: "Портфель анонимизированных кейсов",
   servicesTitle: "Ключевые направления",
   processTitle: "4 тайма правовой защиты",
@@ -289,19 +289,19 @@ const enCopy: LandingCopy = {
   audienceIntro:
     "Switch your role to view the most relevant legal focus and priority service tracks for your profile.",
   servicesIntro:
-    "Core services are focused on contractual stability, player rights protection and proceedings before RFU, FIFA, UEFA and CAS forums.",
+    "Core services focus on contractual stability, player rights protection and proceedings before RFU, FIFA, UEFA and CAS.",
   processIntro:
-    "Our workflow combines pre-dispute evidence discipline, legal strategy and execution control across football dispute mechanisms.",
+    "Our workflow combines evidence discipline, legal strategy and execution control across football disputes.",
   proofIntro:
-    "Case summaries remain anonymized while reflecting real dispute patterns: overdue payments, discriminatory treatment and contested terminations.",
+    "Case summaries are anonymized and reflect recurring dispute patterns: overdue payments, discriminatory treatment and contested terminations.",
   expertiseTitle: "Expert Focus: Material Breaches and Player Protection",
   expertiseIntro:
-    "A concise framework based on UFM 2024: when a club breach may qualify as material and how to proceed without procedural errors.",
+    "A concise framework from UFM 2024: when a club breach qualifies as material and how to proceed without procedural errors.",
   expertiseCards: [
     {
       title: "What is treated as a material breach",
       description:
-        "In football dispute practice, the most frequent triggers are systemic financial defaults and status-related violations by clubs.",
+        "In football disputes, the most frequent triggers are systemic financial defaults and status-related violations by clubs.",
       bullets: [
         "Overdue pay obligations at 2+ average monthly salaries",
         "Failure to register an 18+ player without lawful grounds",
@@ -311,7 +311,7 @@ const enCopy: LandingCopy = {
     {
       title: "Action path for player or coach",
       description:
-        "Risk is reduced by procedural discipline: formal notice, cure period, then filing to the RFU dispute resolution chamber.",
+        "Risk is reduced by procedural discipline: formal notice, cure period, then filing to the RFU dispute chamber.",
       bullets: [
         "Serve a formal notice describing the breach and intent to terminate",
         "Observe the cure period, typically 10 or 30 calendar days",
@@ -321,7 +321,7 @@ const enCopy: LandingCopy = {
     {
       title: "Compensation and key risks",
       description:
-        "If legal grounds are misqualified, the terminating party may be treated as the breaching side with financial and sporting consequences.",
+        "If legal grounds are misqualified, the terminating party may be treated as the breaching side with financial consequences.",
       bullets: [
         "Compensation is assessed under contract terms and chamber criteria",
         "If not fixed in contract, the minimum benchmark is often 3 monthly salaries",
@@ -357,7 +357,7 @@ const enCopy: LandingCopy = {
   ],
   aboutTitle: "Strong legal positioning in professional football",
   aboutText:
-    "Since 2014, Aletheia has run football-focused legal mandates for players, coaches, agents and clubs in high-risk disputes. We operate with concise communication, procedural rigor and measurable outcomes.",
+    "Since 2014, Aletheia has handled football-focused mandates for players, coaches, agents and clubs in high-risk disputes. We operate with concise communication, procedural rigor and measurable outcomes.",
   proofTitle: "Anonymized case portfolio",
   servicesTitle: "Core legal practices",
   processTitle: "4 halves of legal defense",

@@ -21,13 +21,13 @@ export function ProofSection({copy, cases}: ProofSectionProps) {
           {cases.map((item) => (
             <article
               key={item.title}
-              className="relative grid gap-2 overflow-hidden rounded-md border border-line-soft bg-[linear-gradient(165deg,rgba(30,33,39,0.95),rgba(19,18,24,0.9)),url('/images/bronze-texture.svg')] bg-[length:130%_auto] bg-[position:top_right] p-[clamp(1rem,1.8vw,1.18rem)]"
+              className="group relative grid gap-2 overflow-hidden rounded-md border border-line-soft bg-[linear-gradient(165deg,rgba(30,33,39,0.95),rgba(19,18,24,0.9)),url('/images/bronze-texture.svg')] bg-[length:130%_auto] bg-[position:top_right] p-[clamp(1rem,1.8vw,1.18rem)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_0_1px_rgba(201,164,119,0.16),0_14px_28px_rgba(0,0,0,0.32)]"
             >
               <span className="pointer-events-none absolute -bottom-24 -right-16 h-[250px] w-[190px] bg-[url('/brand/logo/mark-purple-512.png')] bg-cover bg-center opacity-[0.09] blur-[0.5px]" />
               <span className="font-accent text-xs uppercase tracking-[0.09em] text-[color:var(--color-accent-ice)]">
                 {copy.caseTag}
               </span>
-              <h3 className="text-[1.28rem] leading-tight">{item.title}</h3>
+              <h3 className="text-[1.28rem] leading-tight group-hover:text-text">{item.title}</h3>
               <p className="text-sm text-muted">{item.challenge}</p>
               <p className="text-sm text-muted">{item.result}</p>
               {item.metrics?.length ? (

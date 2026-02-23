@@ -32,7 +32,7 @@ export function ProcessSection({copy}: ProcessSectionProps) {
             {copy.process.map((item) => (
               <article
                 key={item.stage}
-                className="rounded-md border border-line-soft bg-[color:color-mix(in_srgb,var(--color-surface-900)_88%,transparent)] p-[clamp(1rem,1.6vw,1.15rem)]"
+                className="rounded-md border border-line-soft bg-[color:color-mix(in_srgb,var(--color-surface-900)_88%,transparent)] p-[clamp(1rem,1.6vw,1.15rem)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_0_1px_rgba(201,164,119,0.16),0_12px_28px_rgba(0,0,0,0.28)]"
               >
                 <p className="font-accent text-xs uppercase tracking-[0.09em] text-bronze-300">{item.stage}</p>
                 <h3 className="mt-1 text-xl leading-tight">{item.title}</h3>
