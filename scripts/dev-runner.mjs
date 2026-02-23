@@ -4,7 +4,8 @@ import {spawn} from "node:child_process";
 import process from "node:process";
 
 const projectRoot = process.cwd();
-const nextDir = path.join(projectRoot, ".next");
+const devDistDirName = process.env.NEXT_DEV_DIST_DIR || ".next-dev";
+const nextDir = path.join(projectRoot, devDistDirName);
 const lockFile = path.join(nextDir, "dev.lock");
 const nextBin = path.join(projectRoot, "node_modules", "next", "dist", "bin", "next");
 const forwardArgs = process.argv.slice(2);
@@ -74,7 +75,10 @@ writeLock();
 const child = spawn(process.execPath, [nextBin, "dev", ...forwardArgs], {
   stdio: "inherit",
   cwd: projectRoot,
-  env: process.env,
+  env: {
+    ...process.env,
+    NEXT_DEV_DIST_DIR: devDistDirName,
+  },
 });
 
 const forwardSignals = ["SIGINT", "SIGTERM", "SIGHUP"];
@@ -100,4 +104,3 @@ child.on("error", (error) => {
   console.error(error);
   process.exit(1);
 });
-
