@@ -18,7 +18,7 @@ export function ExpertiseSection({copy}: ExpertiseSectionProps) {
     <section
       id="expertise"
       aria-labelledby="expertise-heading"
-      className="section border-y border-line-soft bg-[radial-gradient(circle_at_12%_16%,rgba(201,164,119,0.12),transparent_44%),color-mix(in_srgb,var(--color-surface-900)_82%,transparent)]"
+      className="section scroll-mt-[72px] border-y border-line-soft bg-[radial-gradient(circle_at_12%_16%,rgba(201,164,119,0.12),transparent_44%),color-mix(in_srgb,var(--color-surface-900)_82%,transparent)] lg:scroll-mt-[86px]"
     >
       <div className="container">
         <header className="mb-[clamp(1.3rem,2.7vw,2.15rem)] grid gap-3">

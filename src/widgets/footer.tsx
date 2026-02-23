@@ -35,7 +35,10 @@ export function Footer({locale}: FooterProps) {
   ] as const;
 
   return (
-    <footer id="contact" className="border-t border-line-soft bg-[color:color-mix(in_srgb,var(--color-bg-950)_92%,#0b0b0e)] py-10">
+    <footer
+      id="contact"
+      className="scroll-mt-[72px] border-t border-line-soft bg-[color:color-mix(in_srgb,var(--color-bg-950)_92%,#0b0b0e)] py-10 lg:scroll-mt-[86px]"
+    >
       <div className="container grid gap-8">
         <div className="flex flex-wrap items-start justify-between gap-8">
           <div className="grid gap-2">

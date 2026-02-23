@@ -1,7 +1,3 @@
-"use client";
-
-import {useEffect, useMemo, useRef, useState} from "react";
-
 import {Badge} from "@/shared/ui/badge";
 import type {CaseItem} from "@/shared/lib/cms/types";
 
@@ -20,103 +16,12 @@ function splitToSentences(text: string) {
 }
 
 export function ProofSection({copy, cases}: ProofSectionProps) {
-  const metricsRef = useRef<HTMLDivElement | null>(null);
-  const [isMetricsVisible, setIsMetricsVisible] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false);
-
-  const parsedStats = useMemo(
-    () =>
-      copy.companyStats.map((item) => {
-        const numberMatch = item.value.match(/\d+/);
-        const target = numberMatch ? Number(numberMatch[0]) : 0;
-        const suffix = item.value.replace(String(target), "");
-
-        return {
-          label: item.label,
-          target,
-          suffix,
-          fallback: item.value,
-        };
-      }),
-    [copy.companyStats],
-  );
-
-  const [animatedValues, setAnimatedValues] = useState<number[]>(() =>
-    parsedStats.map(() => 0),
-  );
-
-  useEffect(() => {
-    setAnimatedValues(parsedStats.map(() => 0));
-    setHasAnimated(false);
-    setIsMetricsVisible(false);
-  }, [parsedStats]);
-
-  useEffect(() => {
-    const rootElement = metricsRef.current;
-    if (!rootElement) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsMetricsVisible(true);
-          observer.disconnect();
-        }
-      },
-      {threshold: 0.25},
-    );
-
-    observer.observe(rootElement);
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isMetricsVisible || hasAnimated) {
-      return;
-    }
-
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (prefersReducedMotion) {
-      setAnimatedValues(parsedStats.map((item) => item.target));
-      setHasAnimated(true);
-      return;
-    }
-
-    const duration = 820;
-    const start = performance.now();
-    let frameId = 0;
-
-    const tick = (timestamp: number) => {
-      const progress = Math.min((timestamp - start) / duration, 1);
-
-      setAnimatedValues(
-        parsedStats.map((item) => {
-          if (!item.target) {
-            return 0;
-          }
-
-          return Math.round(item.target * progress);
-        }),
-      );
-
-      if (progress < 1) {
-        frameId = window.requestAnimationFrame(tick);
-        return;
-      }
-
-      setHasAnimated(true);
-    };
-
-    frameId = window.requestAnimationFrame(tick);
-
-    return () => window.cancelAnimationFrame(frameId);
-  }, [hasAnimated, isMetricsVisible, parsedStats]);
-
   return (
-    <section id="cases" aria-labelledby="cases-heading" className="section pt-[clamp(1.2rem,2.6vw,2rem)]">
+    <section
+      id="cases"
+      aria-labelledby="cases-heading"
+      className="section scroll-mt-[72px] pt-[clamp(1.2rem,2.6vw,2rem)] lg:scroll-mt-[86px]"
+    >
       <div className="container">
         <header className="mb-[clamp(1.3rem,2.7vw,2.15rem)] grid gap-3">
           <h2 id="cases-heading" className="text-[clamp(1.9rem,3vw,2.53rem)]">{copy.proofTitle}</h2>
@@ -128,26 +33,6 @@ export function ProofSection({copy, cases}: ProofSectionProps) {
             ))}
           </div>
         </header>
-
-        <div
-          ref={metricsRef}
-          className="mb-[clamp(1.2rem,3vw,2rem)] grid grid-cols-1 gap-[clamp(0.9rem,1.8vw,1.15rem)] md:grid-cols-3"
-        >
-          {parsedStats.map((item, index) => (
-            <article
-              key={`${item.label}-${item.fallback}`}
-              className={`rounded-md border border-line-soft bg-[linear-gradient(160deg,rgba(30,33,39,0.92),rgba(20,20,24,0.84))] p-[clamp(1rem,1.8vw,1.18rem)] shadow-sm transition-[opacity,transform,border-color,box-shadow] duration-200 ${isMetricsVisible ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"} hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_0_1px_rgba(201,164,119,0.16),0_12px_26px_rgba(0,0,0,0.3)]`}
-              style={{transitionDelay: `${index * 60}ms`}}
-            >
-              <p className="font-accent text-[clamp(2.2rem,4vw,3rem)] leading-none tracking-[0.02em] text-bronze-300">
-                {item.target
-                  ? `${animatedValues[index]}${item.suffix}`
-                  : item.fallback}
-              </p>
-              <p className="mt-2 text-sm text-muted">{item.label}</p>
-            </article>
-          ))}
-        </div>
 
         <div className="grid grid-cols-1 gap-[clamp(0.9rem,1.8vw,1.15rem)] md:grid-cols-2 xl:grid-cols-3">
           {cases.map((item) => (

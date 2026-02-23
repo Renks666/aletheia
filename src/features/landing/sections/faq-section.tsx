@@ -12,7 +12,11 @@ type FaqSectionProps = {
 
 export function FaqSection({copy, faq}: FaqSectionProps) {
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="section">
+    <section
+      id="faq"
+      aria-labelledby="faq-heading"
+      className="section scroll-mt-[72px] lg:scroll-mt-[86px]"
+    >
       <div className="container">
         <header className="mb-[clamp(1.3rem,2.7vw,2.15rem)] grid gap-3">
           <h2 id="faq-heading" className="text-[clamp(1.9rem,3vw,2.53rem)]">{copy.faqTitle}</h2>

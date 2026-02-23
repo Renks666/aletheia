@@ -3,6 +3,7 @@
 import {CalendarDays, Clock3, Eye, FolderClosed, Scale, ShieldCheck, Trophy, type LucideIcon} from "lucide-react";
 import Image from "next/image";
 import {useTranslations} from "next-intl";
+import {useEffect, useMemo, useRef, useState} from "react";
 
 import {Button} from "@/shared/ui/button";
 import {smoothScrollToId} from "@/shared/lib/utils/smooth-scroll";
@@ -28,12 +29,99 @@ const trustBadgeIcons: Record<TrustBadgeIcon, LucideIcon> = {
 
 export function HeroSection({copy}: HeroSectionProps) {
   const tCommon = useTranslations("common");
+  const statsRef = useRef<HTMLUListElement | null>(null);
+  const [isStatsInView, setIsStatsInView] = useState(false);
+
+  const parsedStats = useMemo(
+    () =>
+      copy.companyStats.map((item) => {
+        const numberMatch = item.value.match(/\d+/);
+        const target = numberMatch ? Number(numberMatch[0]) : 0;
+        const suffix = item.value.replace(String(target), "");
+
+        return {
+          target,
+          suffix,
+          fallback: item.value,
+        };
+      }),
+    [copy.companyStats],
+  );
+
+  const [animatedValues, setAnimatedValues] = useState<number[]>(() =>
+    parsedStats.map((item) => item.target),
+  );
+
+  useEffect(() => {
+    setAnimatedValues(parsedStats.map((item) => item.target));
+  }, [parsedStats]);
+
+  useEffect(() => {
+    const rootElement = statsRef.current;
+    if (!rootElement) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsStatsInView(entry.isIntersecting);
+      },
+      {threshold: 0.25},
+    );
+
+    observer.observe(rootElement);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isStatsInView) {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      setAnimatedValues(parsedStats.map((item) => item.target));
+      return;
+    }
+
+    setAnimatedValues(parsedStats.map(() => 0));
+
+    const duration = 1200;
+    const start = performance.now();
+    let frameId = 0;
+    const easeOutCubic = (value: number) => 1 - Math.pow(1 - value, 3);
+
+    const tick = (timestamp: number) => {
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const easedProgress = easeOutCubic(progress);
+
+      setAnimatedValues(
+        parsedStats.map((item) => {
+          if (!item.target) {
+            return 0;
+          }
+
+          return Math.round(item.target * easedProgress);
+        }),
+      );
+
+      if (progress < 1) {
+        frameId = window.requestAnimationFrame(tick);
+      }
+    };
+
+    frameId = window.requestAnimationFrame(tick);
+
+    return () => window.cancelAnimationFrame(frameId);
+  }, [isStatsInView, parsedStats]);
 
   return (
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative border-b border-line-soft bg-hero py-[clamp(4.2rem,8.2vw,6.4rem)]"
+      className="relative scroll-mt-[72px] border-b border-line-soft bg-hero py-[clamp(4.2rem,8.2vw,6.4rem)] lg:scroll-mt-[86px]"
     >
       <div className="container grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,520px)]">
         <div className="grid gap-4 animate-fade-up">
@@ -59,9 +147,11 @@ export function HeroSection({copy}: HeroSectionProps) {
             </Button>
           </div>
 
-          <ul className="mt-2 grid grid-cols-1 gap-3 md:grid-cols-3">
-            {copy.companyStats.map((item) => {
+          <ul ref={statsRef} className="mt-2 grid grid-cols-1 gap-3 md:grid-cols-3">
+            {copy.companyStats.map((item, index) => {
               const Icon = statIcons[item.icon];
+              const parsedStat = parsedStats[index];
+              const animatedValue = animatedValues[index] ?? 0;
 
               return (
                 <li
@@ -74,7 +164,9 @@ export function HeroSection({copy}: HeroSectionProps) {
                       <Icon className="size-4" aria-hidden />
                     </span>
                     <p className="mt-2 font-accent text-[clamp(2.6rem,5.3vw,4rem)] leading-none tracking-[0.02em] text-bronze-300">
-                      {item.value}
+                      {parsedStat?.target
+                        ? `${animatedValue}${parsedStat.suffix}`
+                        : parsedStat?.fallback ?? item.value}
                     </p>
                     <p className="mt-2 text-[0.72rem] uppercase tracking-[0.09em] text-muted group-hover:text-text">
                       {item.label}

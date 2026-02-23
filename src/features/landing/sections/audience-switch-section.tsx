@@ -13,6 +13,13 @@ type AudienceSwitchSectionProps = {
   servicesCount: number;
 };
 
+function splitToSentences(text: string) {
+  return text
+    .split(/(?<=[.!?:])\s+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 export function AudienceSwitchSection({
   copy,
   role,
@@ -22,11 +29,21 @@ export function AudienceSwitchSection({
   const roleTone = copy.heroByRole[role];
 
   return (
-    <section id="services" aria-labelledby="services-heading" className="section pb-[clamp(1.2rem,2.6vw,2rem)]">
+    <section
+      id="services"
+      aria-labelledby="services-heading"
+      className="section scroll-mt-[72px] pb-[clamp(1.2rem,2.6vw,2rem)] lg:scroll-mt-[86px]"
+    >
       <div className="container">
         <header className="mb-[clamp(1.3rem,2.7vw,2.15rem)] grid gap-3">
           <h2 id="services-heading" className="text-[clamp(1.9rem,3vw,2.53rem)]">{copy.servicesTitle}</h2>
-          <p className="max-w-[66ch] text-muted">{copy.audienceIntro}</p>
+          <div className="grid gap-1.5">
+            {splitToSentences(copy.audienceIntro).map((sentence) => (
+              <p key={sentence} className="max-w-[66ch] text-sm text-muted">
+                {sentence}
+              </p>
+            ))}
+          </div>
         </header>
 
         <div className="flex flex-wrap gap-2">

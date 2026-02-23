@@ -20,7 +20,6 @@ export function LandingPage({locale, services, cases, faq}: LandingPageProps) {
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(125,143,163,0.09)_1px,transparent_1px),linear-gradient(to_bottom,rgba(125,143,163,0.08)_1px,transparent_1px)] bg-[size:120px_120px] opacity-25" />
 
       <Header locale={locale} />
-      <div className="h-[72px] lg:h-[86px]" aria-hidden />
       <main>
         <RoleExperience copy={copy} services={services} />
         <ProcessSection copy={copy} />

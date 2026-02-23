@@ -15,7 +15,11 @@ function splitToSentences(text: string) {
 
 export function ProcessSection({copy}: ProcessSectionProps) {
   return (
-    <section id="process" aria-labelledby="process-heading" className="section">
+    <section
+      id="process"
+      aria-labelledby="process-heading"
+      className="section scroll-mt-[72px] lg:scroll-mt-[86px]"
+    >
       <div className="container">
         <header className="mb-[clamp(1.3rem,2.7vw,2.15rem)] grid gap-3">
           <h2 id="process-heading" className="text-[clamp(1.9rem,3vw,2.53rem)]">{copy.processTitle}</h2>
