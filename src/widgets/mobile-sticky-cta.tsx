@@ -70,7 +70,7 @@ export function MobileStickyCta() {
       aria-label={t("urgentCta")}
       aria-hidden={!isVisible}
       tabIndex={isVisible ? 0 : -1}
-      className={`focus-ring fixed inset-x-4 bottom-4 z-50 inline-flex items-center justify-center rounded-full bg-cta px-4 py-3 text-sm font-semibold text-text shadow-volume transition-[opacity,transform] duration-200 md:hidden ${isVisible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-2 opacity-0"}`}
+      className={`focus-ring fixed inset-x-4 bottom-4 z-50 inline-flex items-center justify-center rounded-full bg-cta px-4 py-3 text-sm font-semibold text-text shadow-[0_10px_26px_rgba(17,12,28,0.42)] transition-[opacity,transform,box-shadow] duration-200 md:hidden ${isVisible ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none translate-y-2 scale-[0.98] opacity-0"}`}
     >
       {t("urgentCta")}
     </a>

@@ -6,6 +6,13 @@ type ExpertiseSectionProps = {
   copy: LandingCopy;
 };
 
+function splitToSentences(text: string) {
+  return text
+    .split(/(?<=[.!?:])\s+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 export function ExpertiseSection({copy}: ExpertiseSectionProps) {
   return (
     <section
@@ -16,17 +23,29 @@ export function ExpertiseSection({copy}: ExpertiseSectionProps) {
       <div className="container">
         <header className="mb-[clamp(1.3rem,2.7vw,2.15rem)] grid gap-3">
           <h2 id="expertise-heading" className="text-[clamp(1.9rem,3vw,2.53rem)]">{copy.expertiseTitle}</h2>
-          <p className="max-w-[64ch] text-muted">{copy.expertiseIntro}</p>
+          <div className="grid gap-1.5">
+            {splitToSentences(copy.expertiseIntro).map((sentence) => (
+              <p key={sentence} className="max-w-[64ch] text-sm text-muted">
+                {sentence}
+              </p>
+            ))}
+          </div>
         </header>
 
         <div className="grid grid-cols-1 gap-[clamp(0.9rem,1.8vw,1.15rem)] md:grid-cols-2 xl:grid-cols-3">
           {copy.expertiseCards.map((card) => (
             <article
               key={card.title}
-              className="grid content-start gap-3 rounded-md border border-line-soft bg-[color:color-mix(in_srgb,var(--color-bg-950)_72%,transparent)] p-[clamp(1rem,1.8vw,1.2rem)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_0_1px_rgba(201,164,119,0.18),0_14px_30px_rgba(0,0,0,0.34)]"
+              className="grid content-start gap-3 rounded-md border border-line-soft bg-[color:color-mix(in_srgb,var(--color-bg-950)_72%,transparent)] p-[clamp(1rem,1.8vw,1.2rem)] shadow-sm transition-[transform,box-shadow,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:brightness-[1.02] hover:shadow-[0_0_0_1px_rgba(201,164,119,0.18),0_14px_30px_rgba(0,0,0,0.34)]"
             >
               <h3 className="text-[1.2rem] leading-tight">{card.title}</h3>
-              <p className="text-sm text-muted">{card.description}</p>
+              <div className="grid gap-1.5">
+                {splitToSentences(card.description).map((sentence) => (
+                  <p key={`${card.title}-${sentence}`} className="text-sm text-muted">
+                    {sentence}
+                  </p>
+                ))}
+              </div>
               <ul className="grid gap-2">
                 {card.bullets.map((item) => (
                   <li key={item} className="relative pl-4 text-sm text-muted">

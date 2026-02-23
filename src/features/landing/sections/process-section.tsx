@@ -6,13 +6,26 @@ type ProcessSectionProps = {
   copy: LandingCopy;
 };
 
+function splitToSentences(text: string) {
+  return text
+    .split(/(?<=[.!?:])\s+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 export function ProcessSection({copy}: ProcessSectionProps) {
   return (
     <section id="process" aria-labelledby="process-heading" className="section">
       <div className="container">
         <header className="mb-[clamp(1.3rem,2.7vw,2.15rem)] grid gap-3">
           <h2 id="process-heading" className="text-[clamp(1.9rem,3vw,2.53rem)]">{copy.processTitle}</h2>
-          <p className="max-w-[64ch] text-muted">{copy.processIntro}</p>
+          <div className="grid gap-1.5">
+            {splitToSentences(copy.processIntro).map((sentence) => (
+              <p key={sentence} className="max-w-[64ch] text-sm text-muted">
+                {sentence}
+              </p>
+            ))}
+          </div>
         </header>
 
         <div className="grid grid-cols-1 gap-[clamp(1rem,2.2vw,1.4rem)] lg:grid-cols-[minmax(250px,330px)_minmax(0,1fr)]">
@@ -32,11 +45,17 @@ export function ProcessSection({copy}: ProcessSectionProps) {
             {copy.process.map((item) => (
               <article
                 key={item.stage}
-                className="rounded-md border border-line-soft bg-[color:color-mix(in_srgb,var(--color-surface-900)_88%,transparent)] p-[clamp(1rem,1.6vw,1.15rem)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_0_1px_rgba(201,164,119,0.16),0_12px_28px_rgba(0,0,0,0.28)]"
+                className="rounded-md border border-line-soft bg-[color:color-mix(in_srgb,var(--color-surface-900)_88%,transparent)] p-[clamp(1rem,1.6vw,1.15rem)] shadow-sm transition-[transform,box-shadow,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:brightness-[1.02] hover:shadow-[0_0_0_1px_rgba(201,164,119,0.16),0_12px_28px_rgba(0,0,0,0.28)]"
               >
                 <p className="font-accent text-xs uppercase tracking-[0.09em] text-bronze-300">{item.stage}</p>
                 <h3 className="mt-1 text-xl leading-tight">{item.title}</h3>
-                <p className="mt-1 text-sm text-muted">{item.description}</p>
+                <div className="mt-1 grid gap-1.5">
+                  {splitToSentences(item.description).map((sentence) => (
+                    <p key={`${item.stage}-${sentence}`} className="text-sm text-muted">
+                      {sentence}
+                    </p>
+                  ))}
+                </div>
               </article>
             ))}
           </div>

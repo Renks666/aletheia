@@ -66,7 +66,7 @@ export function HeroSection({copy}: HeroSectionProps) {
               return (
                 <li
                   key={`${item.value}-${item.label}`}
-                  className="group relative overflow-hidden rounded-md border border-line-soft bg-[linear-gradient(160deg,rgba(30,33,39,0.9),rgba(20,20,24,0.82))] px-4 py-3 shadow-[0_10px_24px_rgba(0,0,0,0.22)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_0_1px_rgba(201,164,119,0.16),0_14px_30px_rgba(0,0,0,0.32)]"
+                  className="group relative overflow-hidden rounded-md border border-line-soft bg-[linear-gradient(160deg,rgba(30,33,39,0.9),rgba(20,20,24,0.82))] px-4 py-3 shadow-sm transition-[transform,box-shadow,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:brightness-[1.02] hover:shadow-[0_0_0_1px_rgba(201,164,119,0.16),0_14px_30px_rgba(0,0,0,0.32)]"
                 >
                   <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_12%,rgba(201,164,119,0.14),transparent_45%)]" />
                   <div className="relative">
@@ -92,7 +92,7 @@ export function HeroSection({copy}: HeroSectionProps) {
               return (
                 <li
                   key={item.title}
-                  className="group relative overflow-hidden rounded-md border border-line-soft bg-[linear-gradient(160deg,rgba(30,33,39,0.9),rgba(20,20,24,0.82))] p-4 text-text shadow-[0_10px_24px_rgba(0,0,0,0.22)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_0_1px_rgba(201,164,119,0.2),0_14px_30px_rgba(0,0,0,0.34)]"
+                  className="group relative overflow-hidden rounded-md border border-line-soft bg-[linear-gradient(160deg,rgba(30,33,39,0.9),rgba(20,20,24,0.82))] p-4 text-text shadow-sm transition-[transform,box-shadow,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:brightness-[1.02] hover:shadow-[0_0_0_1px_rgba(201,164,119,0.2),0_14px_30px_rgba(0,0,0,0.34)]"
                 >
                   <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_12%,rgba(201,164,119,0.14),transparent_45%)]" />
                   <span className="pointer-events-none absolute inset-0 bg-[url('/images/bronze-texture.svg')] opacity-[0.01] mix-blend-soft-light" />
