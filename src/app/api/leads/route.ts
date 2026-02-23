@@ -66,6 +66,13 @@ export async function POST(request: Request) {
     service: sanitizeText(parsed.data.service),
     message: parsed.data.message ? sanitizeText(parsed.data.message) : "",
     source: parsed.data.source ? sanitizeText(parsed.data.source) : "",
+    sourceDetail: parsed.data.sourceDetail ? sanitizeText(parsed.data.sourceDetail) : "",
+    landingVariant: parsed.data.landingVariant ? sanitizeText(parsed.data.landingVariant) : "",
+    utmSource: parsed.data.utmSource ? sanitizeText(parsed.data.utmSource) : "",
+    utmMedium: parsed.data.utmMedium ? sanitizeText(parsed.data.utmMedium) : "",
+    utmCampaign: parsed.data.utmCampaign ? sanitizeText(parsed.data.utmCampaign) : "",
+    utmTerm: parsed.data.utmTerm ? sanitizeText(parsed.data.utmTerm) : "",
+    utmContent: parsed.data.utmContent ? sanitizeText(parsed.data.utmContent) : "",
     requestId,
   };
 

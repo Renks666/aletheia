@@ -8,7 +8,7 @@ import type {AudienceRole} from "@/shared/lib/i18n/types";
 import type {LandingCopy} from "../model/content";
 import {AudienceSwitchSection} from "../sections/audience-switch-section";
 import {HeroSection} from "../sections/hero-section";
-import {ServicesSection} from "../sections/services-section";
+import {SocialProofSection} from "../sections/social-proof-section";
 
 type RoleExperienceProps = {
   copy: LandingCopy;
@@ -31,13 +31,13 @@ export function RoleExperience({copy, services, defaultRole = "player"}: RoleExp
   return (
     <>
       <HeroSection copy={copy} />
+      <SocialProofSection copy={copy} />
       <AudienceSwitchSection
         copy={copy}
         role={role}
         onRoleChange={setRole}
-        servicesCount={filteredServices.length}
+        services={filteredServices}
       />
-      <ServicesSection copy={copy} services={filteredServices} />
     </>
   );
 }

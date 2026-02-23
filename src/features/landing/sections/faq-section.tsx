@@ -1,8 +1,10 @@
 "use client";
 
 import {ChevronDown} from "lucide-react";
+import {useState} from "react";
 import type {FaqItem} from "@/shared/lib/cms/types";
 
+import {Button} from "@/shared/ui/button";
 import type {LandingCopy} from "../model/content";
 
 type FaqSectionProps = {
@@ -11,6 +13,10 @@ type FaqSectionProps = {
 };
 
 export function FaqSection({copy, faq}: FaqSectionProps) {
+  const [expanded, setExpanded] = useState(false);
+  const visibleFaq = expanded ? faq : faq.slice(0, 5);
+  const hasExtraItems = faq.length > 5;
+
   return (
     <section
       id="faq"
@@ -23,7 +29,7 @@ export function FaqSection({copy, faq}: FaqSectionProps) {
         </header>
 
         <div className="grid gap-3">
-          {faq.map((item) => (
+          {visibleFaq.map((item) => (
             <details
               key={item.question}
               className="group overflow-hidden rounded-md border border-line-soft bg-[color:color-mix(in_srgb,var(--color-surface-900)_82%,transparent)]"
@@ -43,6 +49,14 @@ export function FaqSection({copy, faq}: FaqSectionProps) {
             </details>
           ))}
         </div>
+
+        {hasExtraItems ? (
+          <div className="mt-4">
+            <Button variant="secondary" className="h-10 px-5" onClick={() => setExpanded((open) => !open)}>
+              {expanded ? copy.faqShowLessLabel : copy.faqShowMoreLabel}
+            </Button>
+          </div>
+        ) : null}
       </div>
     </section>
   );

@@ -20,6 +20,13 @@ export type LeadRequest = {
   message?: string;
   consent: true;
   source?: string;
+  sourceDetail?: string;
+  landingVariant?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmTerm?: string;
+  utmContent?: string;
 };
 
 export type LeadSuccessResponse = {

@@ -82,10 +82,9 @@ describe("MobileStickyCta", () => {
       </NextIntlClientProvider>,
     );
 
-    const sticky = container.querySelector('a[href="#lead-form"]');
+    const sticky = container.querySelector('button[aria-label="Urgent consultation"]');
     expect(sticky).toBeInTheDocument();
     expect(sticky).toHaveAttribute("aria-label", enMessages.common.urgentCta);
-    expect(sticky).toHaveAttribute("href", "#lead-form");
     expect(sticky).toHaveAttribute("aria-hidden", "true");
     expect(sticky).toHaveAttribute("tabindex", "-1");
 

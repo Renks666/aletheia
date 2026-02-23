@@ -17,6 +17,13 @@ export const leadRequestSchema = z.object({
   message: baseString.max(1500).optional().or(z.literal("")),
   consent: z.literal(true),
   source: baseString.max(120).optional(),
+  sourceDetail: baseString.max(240).optional(),
+  landingVariant: baseString.max(120).optional(),
+  utmSource: baseString.max(120).optional(),
+  utmMedium: baseString.max(120).optional(),
+  utmCampaign: baseString.max(160).optional(),
+  utmTerm: baseString.max(160).optional(),
+  utmContent: baseString.max(160).optional(),
 });
 
 export const leadDetailsSchema = z.object({

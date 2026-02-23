@@ -1,4 +1,5 @@
 import Image from "next/image";
+import {ScrollToLeadButton} from "@/widgets/scroll-to-lead-button";
 
 import type {LandingCopy} from "../model/content";
 
@@ -62,6 +63,10 @@ export function ProcessSection({copy}: ProcessSectionProps) {
                 </div>
               </article>
             ))}
+
+            <div className="pt-1">
+              <ScrollToLeadButton label={copy.processCtaLabel} className="h-10 px-5" variant="secondary" />
+            </div>
           </div>
         </div>
       </div>

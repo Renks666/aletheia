@@ -2,8 +2,8 @@ import {RoleExperience} from "@/features/landing/interactive/role-experience";
 import {getLandingCopy} from "@/features/landing/model/content";
 import type {LandingPageProps} from "@/features/landing/model/types";
 import {AboutSection} from "@/features/landing/sections/about-section";
-import {ExpertiseSection} from "@/features/landing/sections/expertise-section";
 import {FaqSection} from "@/features/landing/sections/faq-section";
+import {FinalCtaSection} from "@/features/landing/sections/final-cta-section";
 import {ProcessSection} from "@/features/landing/sections/process-section";
 import {ProofSection} from "@/features/landing/sections/proof-section";
 import {Footer} from "@/widgets/footer";
@@ -13,6 +13,17 @@ import {MobileStickyCta} from "@/widgets/mobile-sticky-cta";
 
 export function LandingPage({locale, services, cases, faq}: LandingPageProps) {
   const copy = getLandingCopy(locale);
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    name: locale === "ru" ? "Алетейя" : "Aletheia",
+    description: copy.heroSubtitle,
+    url: `https://aletheia.pro/${locale}`,
+    areaServed: locale === "ru" ? "RU" : "EU",
+    email: "info@aletheia.pro",
+    telephone: "+7 980 888 00 44",
+    sameAs: ["https://t.me/AletheiaFootball"],
+  };
 
   return (
     <div className="relative min-h-screen isolate overflow-hidden" data-theme="aletheia">
@@ -21,12 +32,16 @@ export function LandingPage({locale, services, cases, faq}: LandingPageProps) {
 
       <Header locale={locale} />
       <main>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{__html: JSON.stringify(organizationSchema)}}
+        />
         <RoleExperience copy={copy} services={services} />
         <ProcessSection copy={copy} />
-        <ExpertiseSection copy={copy} />
         <ProofSection copy={copy} cases={cases} />
         <AboutSection copy={copy} />
         <FaqSection copy={copy} faq={faq} />
+        <FinalCtaSection copy={copy} />
         <section id="lead" className="section py-[clamp(3rem,6vw,4.8rem)]">
           <div className="container">
             <div id="lead-form">

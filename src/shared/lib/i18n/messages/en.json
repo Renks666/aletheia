@@ -41,6 +41,7 @@
     "consent": "I agree to personal data processing",
     "submit": "Send request",
     "success": "Your request has been submitted. We will contact you shortly.",
+    "nextSteps": "Next step: counsel will contact you to clarify details and propose a legal strategy.",
     "error": "Submission failed. Please try again.",
     "detailsTitle": "Add case details",
     "detailsPlaceholder": "Provide additional context",

@@ -1,4 +1,4 @@
-import {Button} from "@/shared/ui/button";
+import {ScrollToLeadButton} from "@/widgets/scroll-to-lead-button";
 
 import type {LandingCopy} from "../model/content";
 
@@ -59,9 +59,7 @@ export function ExpertiseSection({copy}: ExpertiseSectionProps) {
         </div>
 
         <div className="mt-[clamp(1rem,2vw,1.4rem)]">
-          <Button asChild variant="secondary" className="h-10 px-5">
-            <a href="#lead-form">{copy.expertiseCtaLabel}</a>
-          </Button>
+          <ScrollToLeadButton label={copy.expertiseCtaLabel} className="h-10 px-5" variant="secondary" />
         </div>
       </div>
     </section>

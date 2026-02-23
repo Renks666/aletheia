@@ -12,7 +12,6 @@ const copy = {
     privacy: "Политика конфиденциальности",
     consent: "Согласие на обработку персональных данных",
     services: "Услуги",
-    menu: "Open menu",
   },
   en: {
     ctaPrimary: "Get legal consultation",
@@ -23,7 +22,6 @@ const copy = {
     privacy: "Privacy policy",
     consent: "Personal data consent",
     services: "Services",
-    menu: "Open menu",
   },
 };
 
@@ -63,7 +61,7 @@ for (const locale of locales) {
     const viewport = page.viewportSize();
 
     if ((viewport?.width ?? 0) < 1024) {
-      await page.getByLabel(copy[locale].menu).click();
+      await page.locator('[aria-controls="mobile-menu"]').click();
       await expect(page.getByRole("link", {name: copy[locale].services}).first()).toBeVisible();
       await page.getByRole("link", {name: copy[locale].services}).first().click();
     } else {
@@ -83,7 +81,7 @@ for (const locale of locales) {
 
     await page.getByLabel(/name|имя/i).fill("Ivan Ivanov");
     await page.getByLabel(/phone|телефон/i).fill("+79991234567");
-    await page.getByLabel(/^Email$/).fill("client@example.com");
+    await page.getByLabel(/Email/i).fill("client@example.com");
     await page.getByLabel(/describe|опишите/i).fill("Нужна консультация по спору");
     await page.getByRole("checkbox").first().click();
 

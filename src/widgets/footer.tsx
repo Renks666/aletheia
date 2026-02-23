@@ -1,6 +1,5 @@
 import {Mail, Phone, Send} from "lucide-react";
 
-import {Badge} from "@/shared/ui/badge";
 import {getLocaleMessages} from "@/shared/lib/i18n/messages";
 import type {Locale} from "@/shared/lib/i18n/types";
 
@@ -42,9 +41,6 @@ export function Footer({locale}: FooterProps) {
       <div className="container grid gap-8">
         <div className="flex flex-wrap items-start justify-between gap-8">
           <div className="grid gap-2">
-            <Badge variant="accent" className="w-fit text-[0.64rem]">
-              2026
-            </Badge>
             <p className="text-base font-semibold">{common.company}</p>
             <p className="text-sm text-muted">{common.fullCompany}</p>
             <p className="text-sm text-muted">{common.slogan}</p>

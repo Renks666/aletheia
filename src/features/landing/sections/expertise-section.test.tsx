@@ -1,4 +1,4 @@
-// @vitest-environment jsdom
+﻿// @vitest-environment jsdom
 
 import {render, screen} from "@testing-library/react";
 import {describe, expect, it} from "vitest";
@@ -12,9 +12,7 @@ describe("ExpertiseSection", () => {
 
     expect(screen.getByRole("heading", {name: /Экспертный фокус/i})).toBeInTheDocument();
     expect(screen.getAllByRole("heading", {level: 3})).toHaveLength(3);
-
-    const cta = screen.getByRole("link", {name: "Разобрать ситуацию с юристом"});
-    expect(cta).toHaveAttribute("href", "#lead-form");
+    expect(screen.getByRole("button", {name: "Разобрать ситуацию с юристом"})).toBeInTheDocument();
   });
 
   it("renders 3 expertise cards and CTA for EN copy", () => {
@@ -22,9 +20,6 @@ describe("ExpertiseSection", () => {
 
     expect(screen.getByRole("heading", {name: /Expert Focus/i})).toBeInTheDocument();
     expect(screen.getAllByRole("heading", {level: 3})).toHaveLength(3);
-
-    const cta = screen.getByRole("link", {name: "Discuss your situation with counsel"});
-    expect(cta).toHaveAttribute("href", "#lead-form");
+    expect(screen.getByRole("button", {name: "Discuss your situation with counsel"})).toBeInTheDocument();
   });
 });
-

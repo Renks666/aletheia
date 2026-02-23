@@ -28,6 +28,14 @@ export function AboutSection({copy}: AboutSectionProps) {
               </p>
             ))}
           </div>
+          <ul className="mt-4 grid gap-2">
+            {copy.aboutTrustPoints.map((item) => (
+              <li key={item} className="relative pl-4 text-sm text-muted">
+                <span className="absolute left-0 top-2 h-1.5 w-1.5 rounded-full bg-bronze-300" />
+                {item}
+              </li>
+            ))}
+          </ul>
         </article>
       </div>
     </section>

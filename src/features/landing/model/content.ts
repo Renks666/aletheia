@@ -54,10 +54,17 @@ export type LandingCopy = {
   caseTag: string;
   aboutTitle: string;
   aboutText: string;
+  aboutTrustPoints: string[];
   proofTitle: string;
   servicesTitle: string;
   processTitle: string;
+  processCtaLabel: string;
   faqTitle: string;
+  faqShowMoreLabel: string;
+  faqShowLessLabel: string;
+  finalCtaTitle: string;
+  finalCtaSubtitle: string;
+  finalCtaButton: string;
 };
 
 const ruCopy: LandingCopy = {
@@ -206,10 +213,22 @@ const ruCopy: LandingCopy = {
   aboutTitle: "Сильная правовая позиция в мире профессионального футбола",
   aboutText:
     "С 2014 года Алетейя ведет профильные футбольные дела и сопровождает игроков, тренеров, агентов и клубы в чувствительных спорах. Работаем коротко, предметно и с процессуальным контролем на каждом этапе.",
+  aboutTrustPoints: [
+    "Профильная практика в футбольном праве с 2014 года",
+    "Работа в рамках регламентов РФС, FIFA, UEFA и CAS",
+    "Анонимизированная публикация кейсов и закрытый контур данных",
+  ],
   proofTitle: "Портфель анонимизированных кейсов",
   servicesTitle: "Ключевые направления",
   processTitle: "4 тайма правовой защиты",
   faqTitle: "Ответы на ключевые вопросы",
+  processCtaLabel: "Запросить оценку ситуации",
+  faqShowMoreLabel: "Показать дополнительные вопросы",
+  faqShowLessLabel: "Скрыть дополнительные вопросы",
+  finalCtaTitle: "Нужна правовая позиция по вашему кейсу?",
+  finalCtaSubtitle:
+    "Отправьте заявку и получите первичный разбор с рекомендацией по следующему юридическому шагу.",
+  finalCtaButton: "Получить консультацию",
 };
 
 const enCopy: LandingCopy = {
@@ -358,10 +377,22 @@ const enCopy: LandingCopy = {
   aboutTitle: "Strong legal positioning in professional football",
   aboutText:
     "Since 2014, Aletheia has handled football-focused mandates for players, coaches, agents and clubs in high-risk disputes. We operate with concise communication, procedural rigor and measurable outcomes.",
+  aboutTrustPoints: [
+    "Football law-focused practice since 2014",
+    "Work aligned with RFU, FIFA, UEFA and CAS frameworks",
+    "Anonymized case publishing and restricted data workflow",
+  ],
   proofTitle: "Anonymized case portfolio",
   servicesTitle: "Core legal practices",
   processTitle: "4 halves of legal defense",
   faqTitle: "Frequently asked questions",
+  processCtaLabel: "Request a case assessment",
+  faqShowMoreLabel: "Show more questions",
+  faqShowLessLabel: "Hide extra questions",
+  finalCtaTitle: "Need a legal position on your case?",
+  finalCtaSubtitle:
+    "Submit your request to receive an initial review and a recommendation for the next legal step.",
+  finalCtaButton: "Get legal consultation",
 };
 
 export function getLandingCopy(locale: Locale): LandingCopy {

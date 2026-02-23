@@ -31,10 +31,6 @@ vi.mock("@/features/landing/sections/process-section", () => ({
   ProcessSection: () => <section data-slot="process" />,
 }));
 
-vi.mock("@/features/landing/sections/expertise-section", () => ({
-  ExpertiseSection: () => <section data-slot="expertise" id="expertise" />,
-}));
-
 vi.mock("@/features/landing/sections/proof-section", () => ({
   ProofSection: () => <section data-slot="proof" />,
 }));
@@ -45,6 +41,10 @@ vi.mock("@/features/landing/sections/about-section", () => ({
 
 vi.mock("@/features/landing/sections/faq-section", () => ({
   FaqSection: () => <section data-slot="faq" />,
+}));
+
+vi.mock("@/features/landing/sections/final-cta-section", () => ({
+  FinalCtaSection: () => <section data-slot="final-cta" />,
 }));
 
 const services: ServiceItem[] = [
@@ -76,7 +76,7 @@ const faq: FaqItem[] = [
 ];
 
 describe("LandingPage", () => {
-  it("renders sections in order with expertise between process and proof", () => {
+  it("renders sections in new conversion-first order", () => {
     const {container} = render(<LandingPage locale="ru" services={services} cases={cases} faq={faq} />);
 
     const sectionOrder = Array.from(container.querySelectorAll("main [data-slot]")).map((node) =>
@@ -86,10 +86,10 @@ describe("LandingPage", () => {
     expect(sectionOrder).toEqual([
       "role",
       "process",
-      "expertise",
       "proof",
       "about",
       "faq",
+      "final-cta",
       "lead-form-island",
     ]);
 
@@ -97,4 +97,3 @@ describe("LandingPage", () => {
     expect(container.querySelector("#lead-form")).not.toBeNull();
   });
 });
-

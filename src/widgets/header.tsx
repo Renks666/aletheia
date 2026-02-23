@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import {useEffect, useMemo, useRef, useState} from "react";
@@ -30,20 +30,19 @@ export function Header({locale}: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const localeMenuRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const switcherLabel = locale === "ru" ? "Выбрать язык" : "Choose language";
-  const navAriaLabel = locale === "ru" ? "Разделы сайта" : "Site sections";
+  const switcherLabel = locale === "ru" ? "Р’С‹Р±СЂР°С‚СЊ СЏР·С‹Рє" : "Choose language";
+  const navAriaLabel = locale === "ru" ? "Р Р°Р·РґРµР»С‹ СЃР°Р№С‚Р°" : "Site sections";
   const localeMenuId = "locale-menu";
   const mobileMenuId = "mobile-menu";
-  const openMenuLabel = locale === "ru" ? "Открыть меню" : "Open menu";
-  const closeMenuLabel = locale === "ru" ? "Закрыть меню" : "Close menu";
+  const brandName = locale === "ru" ? "Алетейя" : "Aletheia";
+  const openMenuLabel = locale === "ru" ? "РћС‚РєСЂС‹С‚СЊ РјРµРЅСЋ" : "Open menu";
+  const closeMenuLabel = locale === "ru" ? "Р—Р°РєСЂС‹С‚СЊ РјРµРЅСЋ" : "Close menu";
 
   const navItems = useMemo<NavItem[]>(
     () => [
       {id: "services", label: tNav("services")},
       {id: "process", label: tNav("process")},
-      {id: "expertise", label: tNav("expertise")},
       {id: "cases", label: tNav("cases")},
-      {id: "about", label: tNav("about")},
       {id: "faq", label: tNav("faq")},
       {id: "contact", label: tNav("contact")},
     ],
@@ -103,7 +102,7 @@ export function Header({locale}: HeaderProps) {
               className="font-heading text-[1.95rem] leading-none tracking-[0.02em] text-[#f2eee8] supports-[(-webkit-background-clip:text)]:bg-clip-text supports-[(-webkit-background-clip:text)]:text-transparent supports-[(-webkit-text-fill-color:transparent)]:[-webkit-text-fill-color:transparent] lg:text-[2.56rem]"
               style={{backgroundImage: BRAND_TITLE_GRADIENT_PREV}}
             >
-              Алетейя
+              {brandName}
             </span>
             <span className="hidden justify-self-center text-center text-[0.72rem] text-muted sm:block">
               {tCommon("slogan")}
@@ -222,7 +221,7 @@ export function Header({locale}: HeaderProps) {
                       <li key={item.id}>
                         <a
                           href={`#${item.id}`}
-                          className="focus-ring rounded-md border border-transparent px-3 py-2 text-sm text-muted transition-colors hover:border-line-soft hover:text-text"
+                          className="focus-ring rounded-md border border-transparent px-3 py-2.5 text-sm text-muted transition-colors hover:border-line-soft hover:text-text"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {item.label}
@@ -251,3 +250,4 @@ export function Header({locale}: HeaderProps) {
     </header>
   );
 }
+

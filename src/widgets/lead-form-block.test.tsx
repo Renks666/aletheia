@@ -1,4 +1,4 @@
-// @vitest-environment jsdom
+﻿// @vitest-environment jsdom
 
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {NextIntlClientProvider} from "next-intl";
@@ -75,8 +75,8 @@ describe("LeadFormBlock", () => {
       </NextIntlClientProvider>,
     );
 
-    fireEvent.change(screen.getByLabelText("Имя"), {target: {value: "Иван Иванов"}});
-    fireEvent.change(screen.getByLabelText("Телефон"), {target: {value: "+79991234567"}});
+    fireEvent.change(screen.getByLabelText(ruMessages.lead.name), {target: {value: "Иван Иванов"}});
+    fireEvent.change(screen.getByLabelText(ruMessages.lead.phone), {target: {value: "+79991234567"}});
     expect(screen.getByRole("link", {name: "info@aletheia.pro"})).toHaveAttribute(
       "href",
       "mailto:info@aletheia.pro",
@@ -86,20 +86,20 @@ describe("LeadFormBlock", () => {
       "https://t.me/AletheiaFootball",
     );
 
-    fireEvent.change(screen.getByLabelText("Email"), {target: {value: "client@example.com"}});
-    fireEvent.change(screen.getByLabelText("Кратко опишите ситуацию"), {
+    fireEvent.change(screen.getByLabelText(/Email/i), {target: {value: "client@example.com"}});
+    fireEvent.change(screen.getByLabelText(ruMessages.lead.message), {
       target: {value: "Нужна консультация"},
     });
     fireEvent.click(screen.getByRole("checkbox"));
 
-    fireEvent.click(screen.getByRole("button", {name: "Отправить заявку"}));
+    fireEvent.click(screen.getByRole("button", {name: ruMessages.lead.submit}));
 
-    await screen.findByText("Добавить детали кейса");
+    await screen.findByText(ruMessages.lead.detailsTitle);
 
-    fireEvent.change(screen.getByPlaceholderText("Опишите дополнительные обстоятельства"), {
+    fireEvent.change(screen.getByPlaceholderText(ruMessages.lead.detailsPlaceholder), {
       target: {value: "Подробности по делу для второго шага"},
     });
-    fireEvent.click(screen.getByRole("button", {name: "Отправить детали"}));
+    fireEvent.click(screen.getByRole("button", {name: ruMessages.lead.detailsSubmit}));
 
     await waitFor(() => {
       expect(fetchMock).toHaveBeenCalledTimes(2);

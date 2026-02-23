@@ -60,6 +60,13 @@ export function LeadFormBlock({
       message: "",
       consent: false,
       source: "landing",
+      sourceDetail: "",
+      landingVariant: "v2-conversion",
+      utmSource: "",
+      utmMedium: "",
+      utmCampaign: "",
+      utmTerm: "",
+      utmContent: "",
     },
   });
 
@@ -74,6 +81,20 @@ export function LeadFormBlock({
     leadForm.setValue("locale", locale);
     leadForm.setValue("role", selectedRole);
   }, [leadForm, locale, selectedRole]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    leadForm.setValue("sourceDetail", document.referrer || "");
+    leadForm.setValue("utmSource", params.get("utm_source") ?? "");
+    leadForm.setValue("utmMedium", params.get("utm_medium") ?? "");
+    leadForm.setValue("utmCampaign", params.get("utm_campaign") ?? "");
+    leadForm.setValue("utmTerm", params.get("utm_term") ?? "");
+    leadForm.setValue("utmContent", params.get("utm_content") ?? "");
+  }, [leadForm]);
 
   async function onSubmit(values: LeadRequestFormValues) {
     setStatus("idle");
@@ -105,7 +126,7 @@ export function LeadFormBlock({
       setRequestId(data.requestId);
       setDetailsToken(data.detailsToken);
       setStatus("success");
-      leadForm.reset({...leadForm.getValues(), consent: false, message: ""});
+      leadForm.reset({...leadForm.getValues(), consent: false, message: "", email: ""});
     } catch {
       setStatus("error");
     }
@@ -183,7 +204,7 @@ export function LeadFormBlock({
 
           <div className="grid gap-1.5">
             <label className="text-sm text-muted" htmlFor="lead-email">
-              {t("email")}
+              {t("email")} {locale === "ru" ? "(опционально)" : "(optional)"}
             </label>
             <Input id="lead-email" {...leadForm.register("email")} autoComplete="email" />
             <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.email?.message}</p>
@@ -250,11 +271,17 @@ export function LeadFormBlock({
             <Button type="submit" disabled={leadForm.formState.isSubmitting}>
               {t("submit")}
             </Button>
-            <p className={cn("text-sm", statusClass)}>
+            <p className={cn("text-sm", statusClass)} role="status" aria-live="polite">
               {status === "success" ? t("success") : status === "error" ? t("error") : ""}
             </p>
           </div>
         </form>
+
+        {status === "success" ? (
+          <p className="mt-2 text-sm text-muted" role="status" aria-live="polite">
+            {t("nextSteps")}
+          </p>
+        ) : null}
 
         {requestId && detailsToken ? (
           <form className="mt-6 grid gap-2 border-t border-line-soft pt-5" onSubmit={detailsForm.handleSubmit(onSubmitDetails)}>

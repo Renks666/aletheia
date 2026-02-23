@@ -1,4 +1,4 @@
-import type {Metadata} from "next";
+﻿import type {Metadata} from "next";
 import {headers} from "next/headers";
 import localFont from "next/font/local";
 import {hasLocale} from "next-intl";
@@ -48,9 +48,8 @@ const neosansFallback = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Алетейя | Спортивный юрист в футболе",
-  description:
-    'Первая правовая футбольная компания "Алетейя". Комплексная юридическая защита игроков, клубов и агентов.',
+  title: "Aletheia Football Legal Company",
+  description: "Premium football legal support: RFU, FIFA, UEFA, CAS, transfers and contracts.",
 };
 
 export default async function RootLayout({children}: Readonly<{children: React.ReactNode}>) {
