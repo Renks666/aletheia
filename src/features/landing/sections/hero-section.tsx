@@ -19,7 +19,7 @@ export function HeroSection({copy}: HeroSectionProps) {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative scroll-mt-[72px] border-b border-line-soft bg-hero py-[clamp(4.2rem,8.2vw,6.4rem)] lg:scroll-mt-[86px]"
+      className="relative scroll-mt-[72px] border-b border-line-soft bg-hero pb-[clamp(3.2rem,6.4vw,5.4rem)] pt-3 sm:pt-5 lg:scroll-mt-[86px] lg:pt-8"
     >
       <div className="container grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(300px,430px)]">
         <div className="grid gap-4 animate-fade-up">
