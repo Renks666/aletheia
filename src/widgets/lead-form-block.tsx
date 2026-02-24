@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useTranslations} from "next-intl";
@@ -48,7 +48,7 @@ type FormSelectProps = {
   placeholder?: string;
 };
 
-function FormSelect({id, value, options, onChange, ariaLabel, placeholder = "—"}: FormSelectProps) {
+function FormSelect({id, value, options, onChange, ariaLabel, placeholder = "-"}: FormSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const selected = options.find((item) => item.value === value);
@@ -229,7 +229,14 @@ export function LeadFormBlock({
       setRequestId(data.requestId);
       setDetailsToken(data.detailsToken);
       setStatus("success");
-      leadForm.reset({...leadForm.getValues(), consent: false, message: "", email: ""});
+      leadForm.reset({
+        ...leadForm.getValues(),
+        role: "" as LeadRole,
+        service: "",
+        consent: false,
+        message: "",
+        email: "",
+      });
     } catch {
       setStatus("error");
     }
@@ -298,7 +305,21 @@ export function LeadFormBlock({
             <label className="text-sm text-muted" htmlFor="lead-phone">
               {t("phone")}
             </label>
-            <Input id="lead-phone" {...leadForm.register("phone")} autoComplete="tel" />
+            <Input
+              id="lead-phone"
+              autoComplete="tel"
+              inputMode="numeric"
+              pattern="\\+?[0-9]*"
+              maxLength={25}
+              {...leadForm.register("phone", {
+                onChange: (event) => {
+                  const raw = String(event.target.value ?? "");
+                  const hasLeadingPlus = raw.startsWith("+");
+                  const digits = raw.replace(/\D+/g, "");
+                  event.target.value = hasLeadingPlus ? `+${digits}` : digits;
+                },
+              })}
+            />
             <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.phone?.message}</p>
           </div>
 
@@ -319,7 +340,7 @@ export function LeadFormBlock({
               ariaLabel={t("role")}
               value={roleValue}
               options={roleOptions}
-              placeholder="—"
+              placeholder="-"
               onChange={(value) =>
                 leadForm.setValue("role", value as LeadRole, {
                   shouldDirty: true,
@@ -340,7 +361,7 @@ export function LeadFormBlock({
               ariaLabel={t("service")}
               value={serviceValue}
               options={serviceOptionsWithOther}
-              placeholder="—"
+              placeholder="-"
               onChange={(value) =>
                 leadForm.setValue("service", value, {
                   shouldDirty: true,
@@ -411,12 +432,11 @@ export function LeadFormBlock({
 
         <div className="mt-4 inline-flex flex-wrap items-center gap-2 rounded-full border border-line-soft bg-[color:color-mix(in_srgb,var(--color-surface-900)_78%,transparent)] px-3 py-1.5 text-xs text-muted">
           <span>{tCommon("confidential")}</span>
-          <span aria-hidden className="text-bronze-300/80">
-            •
-          </span>
+          <span aria-hidden className="text-bronze-300/80">{"\u2022"}</span>
           <span>{tCommon("responseSla")}</span>
         </div>
       </div>
     </div>
   );
 }
+

@@ -10,7 +10,7 @@ export const leadRequestSchema = z.object({
   phone: baseString
     .min(7)
     .max(25)
-    .regex(/^[\d+()\s-]+$/, "Invalid phone format"),
+    .regex(/^\+?\d+$/, "Invalid phone format"),
   email: z.string().trim().email().max(160).optional().or(z.literal("")),
   role: leadRoleSchema,
   service: baseString.min(2).max(100),
