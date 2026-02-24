@@ -213,7 +213,7 @@ export function Header({locale}: HeaderProps) {
             {isMobileMenuOpen ? (
               <div
                 id={mobileMenuId}
-                className="absolute right-0 top-[calc(100%+0.45rem)] z-50 w-[min(86vw,320px)] rounded-lg border border-line-soft bg-[var(--gradient-panel)] p-4 shadow-volume"
+                className="absolute right-0 top-[calc(100%+0.45rem)] z-50 w-[min(86vw,320px)] rounded-lg border border-line-strong bg-[color:color-mix(in_srgb,var(--color-bg-950)_97%,#0d0c13)] p-4 shadow-[0_20px_45px_rgba(0,0,0,0.5)] backdrop-blur-xl"
               >
                 <nav aria-label={navAriaLabel}>
                   <ul className="grid gap-1">
