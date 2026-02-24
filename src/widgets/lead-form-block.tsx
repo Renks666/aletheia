@@ -2,13 +2,13 @@
 
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useTranslations} from "next-intl";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
+import {ChevronDown} from "lucide-react";
 
 import {leadDetailsSchema, leadRequestSchema} from "@/entities/lead/model/schema";
 import type {LeadRequest, LeadResponse, LeadRole} from "@/entities/lead/model/types";
-import {Badge} from "@/shared/ui/badge";
 import {Button} from "@/shared/ui/button";
 import {Input} from "@/shared/ui/input";
 import {Textarea} from "@/shared/ui/textarea";
@@ -28,20 +28,112 @@ type LeadDetailsFormValues = {
   details: string;
 };
 
+type SelectOption = {
+  value: string;
+  label: string;
+};
+
 const leadFormSchema = leadRequestSchema.extend({
   consent: z.boolean().refine((value) => value, {
     message: "Consent is required",
   }),
 });
 
+type FormSelectProps = {
+  id: string;
+  value: string;
+  options: SelectOption[];
+  onChange: (value: string) => void;
+  ariaLabel: string;
+  placeholder?: string;
+};
+
+function FormSelect({id, value, options, onChange, ariaLabel, placeholder = "—"}: FormSelectProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const selected = options.find((item) => item.value === value);
+
+  useEffect(() => {
+    const onPointerDown = (event: PointerEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, []);
+
+  return (
+    <div className="relative" ref={rootRef}>
+      <button
+        id={id}
+        type="button"
+        aria-label={ariaLabel}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        className={cn(
+          "focus-ring h-11 w-full rounded-sm border border-line-strong bg-[linear-gradient(160deg,rgba(30,33,39,0.92),rgba(20,20,24,0.9))] px-3 pr-9 text-left text-sm shadow-sm transition-[border-color,box-shadow,background-color] duration-200 hover:border-[rgba(201,164,119,0.58)] hover:bg-[linear-gradient(160deg,rgba(36,39,46,0.94),rgba(22,20,30,0.92))] focus-visible:border-bronze-300",
+          selected ? "text-text" : "text-muted",
+        )}
+        onClick={() => setIsOpen((open) => !open)}
+      >
+        {selected?.label ?? placeholder}
+      </button>
+      <ChevronDown
+        className={`pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-bronze-300 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+        aria-hidden
+      />
+
+      {isOpen ? (
+        <ul
+          role="listbox"
+          className="absolute z-30 mt-1 max-h-64 w-full overflow-auto rounded-sm border border-line-strong bg-[linear-gradient(170deg,rgba(29,31,39,0.97),rgba(17,16,24,0.98))] p-1 shadow-[0_16px_34px_rgba(0,0,0,0.45)]"
+        >
+          {options.map((option) => {
+            const isActive = option.value === value;
+
+            return (
+              <li key={option.value}>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={isActive}
+                  className={`focus-ring w-full rounded-sm px-3 py-2 text-left text-sm transition-colors ${isActive ? "bg-[color:color-mix(in_srgb,var(--color-primary-800)_64%,transparent)] text-text" : "text-muted hover:bg-[color:color-mix(in_srgb,var(--color-primary-800)_44%,transparent)] hover:text-text"}`}
+                  onClick={() => {
+                    onChange(option.value);
+                    setIsOpen(false);
+                  }}
+                >
+                  {option.label}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
 export function LeadFormBlock({
   locale,
   serviceOptions,
   audienceLabels,
-  selectedRole,
 }: LeadFormBlockProps) {
   const t = useTranslations("lead");
   const tCommon = useTranslations("common");
+  const otherServiceLabel = locale === "ru" ? "Другое" : "Other";
+  const otherRoleLabel = locale === "ru" ? "Другая" : "Other";
 
   const [requestId, setRequestId] = useState<string | null>(null);
   const [detailsToken, setDetailsToken] = useState<string | null>(null);
@@ -55,8 +147,8 @@ export function LeadFormBlock({
       name: "",
       phone: "",
       email: "",
-      role: selectedRole,
-      service: serviceOptions[0]?.title ?? "",
+      role: "" as LeadRole,
+      service: "",
       message: "",
       consent: false,
       source: "landing",
@@ -79,8 +171,19 @@ export function LeadFormBlock({
 
   useEffect(() => {
     leadForm.setValue("locale", locale);
-    leadForm.setValue("role", selectedRole);
-  }, [leadForm, locale, selectedRole]);
+  }, [leadForm, locale]);
+
+  const roleValue = leadForm.watch("role");
+  const serviceValue = leadForm.watch("service");
+  const roleOptions: SelectOption[] = (Object.keys(audienceLabels) as AudienceRole[]).map((role) => ({
+    value: role,
+    label: audienceLabels[role],
+  }));
+  roleOptions.push({value: "other", label: otherRoleLabel});
+  const serviceOptionsWithOther: SelectOption[] = [
+    ...serviceOptions.map((service) => ({value: service.title, label: service.title})),
+    {value: otherServiceLabel, label: otherServiceLabel},
+  ];
 
   useEffect(() => {
     if (typeof window === "undefined") {
@@ -170,19 +273,16 @@ export function LeadFormBlock({
         : "text-muted";
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-line-soft bg-[image:var(--gradient-panel),url('/images/bronze-texture.svg')] bg-cover p-5 shadow-volume md:p-7">
+    <div className="relative overflow-hidden rounded-xl border border-line-soft bg-[image:var(--gradient-panel),url('/images/bronze-texture.svg')] bg-cover p-4 shadow-volume md:p-5">
       <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(201,164,119,0.22),transparent_60%)] blur-xl" />
       <div className="relative">
-        <div className="mb-5 grid gap-2">
-          <Badge variant="accent" className="w-fit text-[0.64rem]">
-            {tCommon("confidential")}
-          </Badge>
+        <div className="mb-3 grid gap-1">
           <h3 className="text-[clamp(1.5rem,2.5vw,2rem)] leading-tight">{t("title")}</h3>
           <p className="max-w-[56ch] text-sm text-muted">{t("subtitle")}</p>
         </div>
 
         <form
-          className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4"
+          className="grid grid-cols-1 gap-2.5 md:grid-cols-2 md:gap-3"
           onSubmit={leadForm.handleSubmit(onSubmit)}
           noValidate
         >
@@ -214,17 +314,20 @@ export function LeadFormBlock({
             <label className="text-sm text-muted" htmlFor="lead-role">
               {t("role")}
             </label>
-            <select
+            <FormSelect
               id="lead-role"
-              className="focus-ring h-11 w-full rounded-sm border border-line-soft bg-[rgba(20,20,24,0.72)] px-3 py-2 text-sm text-text"
-              {...leadForm.register("role")}
-            >
-              {(Object.keys(audienceLabels) as AudienceRole[]).map((role) => (
-                <option key={role} value={role}>
-                  {audienceLabels[role]}
-                </option>
-              ))}
-            </select>
+              ariaLabel={t("role")}
+              value={roleValue}
+              options={roleOptions}
+              placeholder="—"
+              onChange={(value) =>
+                leadForm.setValue("role", value as LeadRole, {
+                  shouldDirty: true,
+                  shouldTouch: true,
+                  shouldValidate: true,
+                })
+              }
+            />
             <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.role?.message}</p>
           </div>
 
@@ -232,17 +335,20 @@ export function LeadFormBlock({
             <label className="text-sm text-muted" htmlFor="lead-service">
               {t("service")}
             </label>
-            <select
+            <FormSelect
               id="lead-service"
-              className="focus-ring h-11 w-full rounded-sm border border-line-soft bg-[rgba(20,20,24,0.72)] px-3 py-2 text-sm text-text"
-              {...leadForm.register("service")}
-            >
-              {serviceOptions.map((service) => (
-                <option key={service.slug} value={service.title}>
-                  {service.title}
-                </option>
-              ))}
-            </select>
+              ariaLabel={t("service")}
+              value={serviceValue}
+              options={serviceOptionsWithOther}
+              placeholder="—"
+              onChange={(value) =>
+                leadForm.setValue("service", value, {
+                  shouldDirty: true,
+                  shouldTouch: true,
+                  shouldValidate: true,
+                })
+              }
+            />
             <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.service?.message}</p>
           </div>
 
@@ -284,7 +390,7 @@ export function LeadFormBlock({
         ) : null}
 
         {requestId && detailsToken ? (
-          <form className="mt-6 grid gap-2 border-t border-line-soft pt-5" onSubmit={detailsForm.handleSubmit(onSubmitDetails)}>
+          <form className="mt-4 grid gap-2 border-t border-line-soft pt-4" onSubmit={detailsForm.handleSubmit(onSubmitDetails)}>
             <p className="font-medium">{t("detailsTitle")}</p>
             <Textarea placeholder={t("detailsPlaceholder")} {...detailsForm.register("details")} />
             <p className="min-h-4 text-xs text-[#f3aba0]">{detailsForm.formState.errors.details?.message}</p>
@@ -303,20 +409,12 @@ export function LeadFormBlock({
           </form>
         ) : null}
 
-        <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted">
+        <div className="mt-4 inline-flex flex-wrap items-center gap-2 rounded-full border border-line-soft bg-[color:color-mix(in_srgb,var(--color-surface-900)_78%,transparent)] px-3 py-1.5 text-xs text-muted">
           <span>{tCommon("confidential")}</span>
+          <span aria-hidden className="text-bronze-300/80">
+            •
+          </span>
           <span>{tCommon("responseSla")}</span>
-          <a href="mailto:info@aletheia.pro" className="focus-ring rounded-sm hover:text-bronze-300">
-            info@aletheia.pro
-          </a>
-          <a
-            href="https://t.me/AletheiaFootball"
-            target="_blank"
-            rel="noreferrer"
-            className="focus-ring rounded-sm hover:text-bronze-300"
-          >
-            t.me/AletheiaFootball
-          </a>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-export type LeadRole = "player" | "club" | "agent" | "coach" | "parent";
+export type LeadRole = "player" | "club" | "agent" | "coach" | "parent" | "other";
 
 export type DeliveryChannel = "email" | "telegram";
 

@@ -1,29 +1,6 @@
-import {expect, test} from "@playwright/test";
+﻿import {expect, test} from "@playwright/test";
 
 const locales = ["ru", "en"] as const;
-
-const copy = {
-  ru: {
-    ctaPrimary: "Получить консультацию",
-    submit: "Отправить заявку",
-    detailsTitle: "Добавить детали кейса",
-    detailsSubmit: "Отправить детали",
-    detailsSuccess: "Дополнительная информация сохранена",
-    privacy: "Политика конфиденциальности",
-    consent: "Согласие на обработку персональных данных",
-    services: "Услуги",
-  },
-  en: {
-    ctaPrimary: "Get legal consultation",
-    submit: "Send request",
-    detailsTitle: "Add case details",
-    detailsSubmit: "Send details",
-    detailsSuccess: "Additional details have been saved",
-    privacy: "Privacy policy",
-    consent: "Personal data consent",
-    services: "Services",
-  },
-};
 
 for (const locale of locales) {
   test(`${locale}: landing visual + lead flow`, async ({page}, testInfo) => {
@@ -62,10 +39,10 @@ for (const locale of locales) {
 
     if ((viewport?.width ?? 0) < 1024) {
       await page.locator('[aria-controls="mobile-menu"]').click();
-      await expect(page.getByRole("link", {name: copy[locale].services}).first()).toBeVisible();
-      await page.getByRole("link", {name: copy[locale].services}).first().click();
+      await expect(page.locator('#mobile-menu a[href="#services"]').first()).toBeVisible();
+      await page.locator('#mobile-menu a[href="#services"]').first().click();
     } else {
-      await page.getByRole("link", {name: copy[locale].services}).first().click();
+      await page.locator('a[href="#services"]').first().click();
     }
 
     await expect.poll(async () => page.url()).toContain("#services");
@@ -76,38 +53,45 @@ for (const locale of locales) {
       contentType: "image/png",
     });
 
-    await page.getByRole("button", {name: copy[locale].ctaPrimary}).first().click();
     await page.locator("#lead-form").scrollIntoViewIfNeeded();
 
-    await page.getByLabel(/name|имя/i).fill("Ivan Ivanov");
-    await page.getByLabel(/phone|телефон/i).fill("+79991234567");
-    await page.getByLabel(/Email/i).fill("client@example.com");
-    await page.getByLabel(/describe|опишите/i).fill("Нужна консультация по спору");
+    await page.locator("#lead-name").fill("Ivan Ivanov");
+    await page.locator("#lead-phone").fill("+79991234567");
+    await page.locator("#lead-email").fill("client@example.com");
+    await page.getByLabel(/your role|ваша роль/i).click();
+    await page.getByRole("option").first().click();
+    await page.getByLabel(/service area|направление вопроса/i).click();
+    await page.getByRole("option").first().click();
+    await page.locator("#lead-message").fill("РќСѓР¶РЅР° РєРѕРЅСЃСѓР»СЊС‚Р°С†РёСЏ РїРѕ СЃРїРѕСЂСѓ");
     await page.getByRole("checkbox").first().click();
 
-    await page.getByRole("button", {name: copy[locale].submit}).first().click();
-    await expect(page.getByText(copy[locale].detailsTitle)).toBeVisible();
+    await page.getByRole("button", {name: /Send request|Отправить заявку/i}).first().click();
+    await expect(page.getByText(/Add case details|Добавить детали кейса/i)).toBeVisible();
 
-    await page.getByPlaceholder(/Provide additional context|Опишите дополнительные обстоятельства/i).fill(
-      "Дополнительные подробности по делу для второго шага",
-    );
-    await page.getByRole("button", {name: copy[locale].detailsSubmit}).click();
-    await expect(page.getByText(copy[locale].detailsSuccess)).toBeVisible();
+    await page
+      .locator("form")
+      .nth(1)
+      .locator("textarea")
+      .fill("Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Рµ РїРѕРґСЂРѕР±РЅРѕСЃС‚Рё РїРѕ РґРµР»Сѓ РґР»СЏ РІС‚РѕСЂРѕРіРѕ С€Р°РіР°");
+    await page.getByRole("button", {name: /Send details|Отправить детали/i}).click();
+    await expect(page.getByText(/Additional details have been saved|Дополнительная информация сохранена/i)).toBeVisible();
   });
 
   test(`${locale}: legal pages and closed routes`, async ({page}) => {
     await page.goto(`/${locale}/legal/privacy`);
-    await expect(page.getByRole("heading", {name: copy[locale].privacy})).toBeVisible();
+    await expect(page.getByRole("heading", {name: /Privacy policy|Политика конфиденциальности/i})).toBeVisible();
 
     await page.goto(`/${locale}/legal/consent`);
-    await expect(page.getByRole("heading", {name: copy[locale].consent})).toBeVisible();
+    await expect(page.getByRole("heading", {name: /Personal data consent|Согласие на обработку персональных данных/i})).toBeVisible();
 
     const loginResponse = await page.goto(`/${locale}/login`);
     expect(loginResponse?.status()).toBe(404);
-    await expect(page.getByRole("heading", {name: "Страница недоступна"})).toBeVisible();
+    await expect(page.getByRole("heading", {name: "РЎС‚СЂР°РЅРёС†Р° РЅРµРґРѕСЃС‚СѓРїРЅР°"})).toBeVisible();
 
     const portalResponse = await page.goto(`/${locale}/portal`);
     expect(portalResponse?.status()).toBe(404);
-    await expect(page.getByRole("heading", {name: "Страница недоступна"})).toBeVisible();
+    await expect(page.getByRole("heading", {name: "РЎС‚СЂР°РЅРёС†Р° РЅРµРґРѕСЃС‚СѓРїРЅР°"})).toBeVisible();
   });
 }
+
+

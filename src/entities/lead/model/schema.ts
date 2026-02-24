@@ -2,7 +2,7 @@
 
 const baseString = z.string().trim();
 
-export const leadRoleSchema = z.enum(["player", "club", "agent", "coach", "parent"]);
+export const leadRoleSchema = z.enum(["player", "club", "agent", "coach", "parent", "other"]);
 
 export const leadRequestSchema = z.object({
   locale: z.enum(["ru", "en"]),

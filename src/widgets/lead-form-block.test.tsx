@@ -77,16 +77,14 @@ describe("LeadFormBlock", () => {
 
     fireEvent.change(screen.getByLabelText(ruMessages.lead.name), {target: {value: "Иван Иванов"}});
     fireEvent.change(screen.getByLabelText(ruMessages.lead.phone), {target: {value: "+79991234567"}});
-    expect(screen.getByRole("link", {name: "info@aletheia.pro"})).toHaveAttribute(
-      "href",
-      "mailto:info@aletheia.pro",
-    );
-    expect(screen.getByRole("link", {name: "t.me/AletheiaFootball"})).toHaveAttribute(
-      "href",
-      "https://t.me/AletheiaFootball",
-    );
+    expect(screen.getByText(ruMessages.common.confidential)).toBeInTheDocument();
+    expect(screen.getByText(ruMessages.common.responseSla)).toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText(/Email/i), {target: {value: "client@example.com"}});
+    fireEvent.click(screen.getByLabelText(ruMessages.lead.role));
+    fireEvent.click(screen.getByRole("option", {name: audienceLabels.player}));
+    fireEvent.click(screen.getByLabelText(ruMessages.lead.service));
+    fireEvent.click(screen.getByRole("option", {name: serviceOptions[0].title}));
     fireEvent.change(screen.getByLabelText(ruMessages.lead.message), {
       target: {value: "Нужна консультация"},
     });
