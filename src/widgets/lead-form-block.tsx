@@ -308,8 +308,9 @@ export function LeadFormBlock({
             <Input
               id="lead-phone"
               className="h-10 py-1.5 md:h-11 md:py-2"
+              type="tel"
               autoComplete="tel"
-              inputMode="numeric"
+              inputMode="tel"
               pattern="\\+?[0-9]*"
               maxLength={25}
               {...leadForm.register("phone", {
