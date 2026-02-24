@@ -82,7 +82,7 @@ function FormSelect({id, value, options, onChange, ariaLabel, placeholder = "-"}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         className={cn(
-          "focus-ring h-11 w-full rounded-sm border border-line-strong bg-[linear-gradient(160deg,rgba(30,33,39,0.92),rgba(20,20,24,0.9))] px-3 pr-9 text-left text-sm shadow-sm transition-[border-color,box-shadow,background-color] duration-200 hover:border-[rgba(201,164,119,0.58)] hover:bg-[linear-gradient(160deg,rgba(36,39,46,0.94),rgba(22,20,30,0.92))] focus-visible:border-bronze-300",
+          "focus-ring h-10 w-full rounded-sm border border-line-strong bg-[linear-gradient(160deg,rgba(30,33,39,0.92),rgba(20,20,24,0.9))] px-3 pr-9 text-left text-sm shadow-sm transition-[border-color,box-shadow,background-color] duration-200 hover:border-[rgba(201,164,119,0.58)] hover:bg-[linear-gradient(160deg,rgba(36,39,46,0.94),rgba(22,20,30,0.92))] focus-visible:border-bronze-300 md:h-11",
           selected ? "text-text" : "text-muted",
         )}
         onClick={() => setIsOpen((open) => !open)}
@@ -280,33 +280,34 @@ export function LeadFormBlock({
         : "text-muted";
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-line-soft bg-[image:var(--gradient-panel),url('/images/bronze-texture.svg')] bg-cover p-4 shadow-volume md:p-5">
+    <div className="relative overflow-hidden rounded-xl border border-line-soft bg-[image:var(--gradient-panel),url('/images/bronze-texture.svg')] bg-cover p-3 shadow-volume md:p-5">
       <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(201,164,119,0.22),transparent_60%)] blur-xl" />
       <div className="relative">
-        <div className="mb-3 grid gap-1">
+        <div className="mb-2 grid gap-0.5 md:mb-3 md:gap-1">
           <h3 className="text-[clamp(1.5rem,2.5vw,2rem)] leading-tight">{t("title")}</h3>
           <p className="max-w-[56ch] text-sm text-muted">{t("subtitle")}</p>
         </div>
 
         <form
-          className="grid grid-cols-1 gap-2.5 md:grid-cols-2 md:gap-3"
+          className="grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-3"
           onSubmit={leadForm.handleSubmit(onSubmit)}
           noValidate
         >
-          <div className="grid gap-1.5">
+          <div className="grid gap-1">
             <label className="text-sm text-muted" htmlFor="lead-name">
               {t("name")}
             </label>
-            <Input id="lead-name" {...leadForm.register("name")} autoComplete="name" />
-            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.name?.message}</p>
+            <Input id="lead-name" className="h-10 py-1.5 md:h-11 md:py-2" {...leadForm.register("name")} autoComplete="name" />
+            <p className="min-h-3 text-xs text-[#f3aba0] md:min-h-4">{leadForm.formState.errors.name?.message}</p>
           </div>
 
-          <div className="grid gap-1.5">
+          <div className="grid gap-1">
             <label className="text-sm text-muted" htmlFor="lead-phone">
               {t("phone")}
             </label>
             <Input
               id="lead-phone"
+              className="h-10 py-1.5 md:h-11 md:py-2"
               autoComplete="tel"
               inputMode="numeric"
               pattern="\\+?[0-9]*"
@@ -320,18 +321,23 @@ export function LeadFormBlock({
                 },
               })}
             />
-            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.phone?.message}</p>
+            <p className="min-h-3 text-xs text-[#f3aba0] md:min-h-4">{leadForm.formState.errors.phone?.message}</p>
           </div>
 
-          <div className="grid gap-1.5">
+          <div className="grid gap-1">
             <label className="text-sm text-muted" htmlFor="lead-email">
               {t("email")} {locale === "ru" ? "(опционально)" : "(optional)"}
             </label>
-            <Input id="lead-email" {...leadForm.register("email")} autoComplete="email" />
-            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.email?.message}</p>
+            <Input
+              id="lead-email"
+              className="h-10 py-1.5 md:h-11 md:py-2"
+              {...leadForm.register("email")}
+              autoComplete="email"
+            />
+            <p className="min-h-3 text-xs text-[#f3aba0] md:min-h-4">{leadForm.formState.errors.email?.message}</p>
           </div>
 
-          <div className="grid gap-1.5">
+          <div className="grid gap-1">
             <label className="text-sm text-muted" htmlFor="lead-role">
               {t("role")}
             </label>
@@ -349,10 +355,10 @@ export function LeadFormBlock({
                 })
               }
             />
-            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.role?.message}</p>
+            <p className="min-h-3 text-xs text-[#f3aba0] md:min-h-4">{leadForm.formState.errors.role?.message}</p>
           </div>
 
-          <div className="grid gap-1.5 md:col-span-2">
+          <div className="grid gap-1 md:col-span-2">
             <label className="text-sm text-muted" htmlFor="lead-service">
               {t("service")}
             </label>
@@ -370,19 +376,23 @@ export function LeadFormBlock({
                 })
               }
             />
-            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.service?.message}</p>
+            <p className="min-h-3 text-xs text-[#f3aba0] md:min-h-4">{leadForm.formState.errors.service?.message}</p>
           </div>
 
-          <div className="grid gap-1.5 md:col-span-2">
+          <div className="grid gap-1 md:col-span-2">
             <label className="text-sm text-muted" htmlFor="lead-message">
               {t("message")}
             </label>
-            <Textarea id="lead-message" {...leadForm.register("message")} />
-            <p className="min-h-4 text-xs text-[#f3aba0]">{leadForm.formState.errors.message?.message}</p>
+            <Textarea
+              id="lead-message"
+              className="min-h-[92px] py-1.5 md:min-h-[112px] md:py-2"
+              {...leadForm.register("message")}
+            />
+            <p className="min-h-3 text-xs text-[#f3aba0] md:min-h-4">{leadForm.formState.errors.message?.message}</p>
           </div>
 
           <div className="md:col-span-2">
-            <label className="flex items-start gap-2.5 text-sm text-muted">
+            <label className="flex items-start gap-2 text-sm text-muted md:gap-2.5">
               <input
                 type="checkbox"
                 className="focus-ring mt-0.5 h-4 w-4 accent-[var(--color-primary-600)]"
@@ -391,7 +401,7 @@ export function LeadFormBlock({
               />
               <span>{t("consent")}</span>
             </label>
-            <p className="min-h-4 pt-1 text-xs text-[#f3aba0]">{leadForm.formState.errors.consent?.message}</p>
+            <p className="min-h-3 pt-0.5 text-xs text-[#f3aba0] md:min-h-4 md:pt-1">{leadForm.formState.errors.consent?.message}</p>
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3 md:col-span-2">
@@ -405,7 +415,7 @@ export function LeadFormBlock({
         </form>
 
         {status === "success" ? (
-          <p className="mt-2 text-sm text-muted" role="status" aria-live="polite">
+          <p className="mt-1.5 text-sm text-muted md:mt-2" role="status" aria-live="polite">
             {t("nextSteps")}
           </p>
         ) : null}
@@ -430,7 +440,7 @@ export function LeadFormBlock({
           </form>
         ) : null}
 
-        <div className="mt-4 inline-flex flex-wrap items-center gap-2 rounded-full border border-line-soft bg-[color:color-mix(in_srgb,var(--color-surface-900)_78%,transparent)] px-3 py-1.5 text-xs text-muted">
+        <div className="mt-3 inline-flex flex-wrap items-center gap-1.5 rounded-full border border-line-soft bg-[color:color-mix(in_srgb,var(--color-surface-900)_78%,transparent)] px-2.5 py-1 text-xs text-muted md:mt-4 md:gap-2 md:px-3 md:py-1.5">
           <span>{tCommon("confidential")}</span>
           <span aria-hidden className="text-bronze-300/80">{"\u2022"}</span>
           <span>{tCommon("responseSla")}</span>
